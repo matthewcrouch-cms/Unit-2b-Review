@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Review Hub: Unit 2b</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F7FB; --surface:#FFFFFF; --surface-2:#E9F1F8; --ink:#12263F; --muted:#485D77; --line:#CFDDEA;
+  --blue:#4B9CD3; --blue-ink:#17609A; --blue-soft:#D9EAF7;
+  --orange:#F66733; --orange-soft:#FDE3D8; --orange-ink:#9C3510;
+  --good:#16704E; --good-soft:#DCF0E6; --bad:#B0261E; --bad-soft:#FBE2DF; --focus:#17609A;
+  --seg-yes:#4B9CD3; --seg-no:#F9B293; --seg-text:#0F2036;
+  --head:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+  --body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1A2C; --surface:#152741; --surface-2:#1B3250; --ink:#E7EFF8; --muted:#A8BBD0; --line:#2B4566;
+    --blue:#6DB4E3; --blue-ink:#8CC8F0; --blue-soft:#1F3F60;
+    --orange:#FF8A5C; --orange-soft:#4A2A1E; --orange-ink:#FFB08F;
+    --good:#5ED0A2; --good-soft:#143A2D; --bad:#FF8A80; --bad-soft:#47201E; --focus:#8CC8F0;
+    --seg-yes:#6DB4E3; --seg-no:#E8946E; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1A2C; --surface:#152741; --surface-2:#1B3250; --ink:#E7EFF8; --muted:#A8BBD0; --line:#2B4566;
+  --blue:#6DB4E3; --blue-ink:#8CC8F0; --blue-soft:#1F3F60;
+  --orange:#FF8A5C; --orange-soft:#4A2A1E; --orange-ink:#FFB08F;
+  --good:#5ED0A2; --good-soft:#143A2D; --bad:#FF8A80; --bad-soft:#47201E; --focus:#8CC8F0;
+  --seg-yes:#6DB4E3; --seg-no:#E8946E; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--body);-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+h1,h2,h3{font-family:var(--head);line-height:1.15;margin:0;letter-spacing:-0.01em}
+p{margin:0 0 .8em}
+a{color:var(--blue-ink)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:0;background:var(--surface);color:var(--ink);padding:8px 12px;z-index:50}
+.skip:focus{left:8px;top:calc(env(safe-area-inset-top,0px) + 8px)}
+
+.shell{display:grid;grid-template-columns:280px minmax(0,1fr);gap:0;max-width:1220px;margin:0 auto}
+.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);align-self:start;padding:24px 16px 24px 20px;max-height:calc(100vh - 24px);overflow:auto}
+.rail-title{font-family:var(--head);font-weight:800;font-size:1.25rem;line-height:1.1;margin-bottom:18px}
+.rail-title span{display:block;font-family:var(--body);font-weight:400;font-size:.9rem;color:var(--muted);margin-top:4px}
+.rail ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.rail-item{all:unset;box-sizing:border-box;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:8px;width:100%;padding:10px 10px;border-radius:10px;cursor:pointer;color:var(--ink);border-left:4px solid transparent}
+.rail-item:hover{background:var(--surface-2)}
+.rail-item:focus-visible{outline:3px solid var(--focus);outline-offset:1px}
+.rail-item[aria-current="page"]{background:var(--surface);border-left-color:var(--orange);box-shadow:0 0 0 1px var(--line)}
+.rn{font-family:var(--head);font-weight:800;font-size:1.15rem;color:var(--blue-ink)}
+.rt{font-size:.93rem;line-height:1.3}
+.rp{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+main{padding:28px 28px 80px 12px;min-width:0;outline:none}
+.page{max-width:820px}
+
+.thead{display:flex;gap:22px;align-items:flex-start;margin-bottom:22px}
+.tnum{font-family:var(--head);font-weight:800;font-size:clamp(3.2rem,9vw,5.6rem);line-height:.9;color:var(--blue);letter-spacing:-0.04em;min-width:1.5em}
+.thead h1{font-size:clamp(1.5rem,3.6vw,2.1rem);margin-bottom:10px}
+.objs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:.95rem;color:var(--muted)}
+.code{display:inline-block;background:var(--blue-soft);color:var(--blue-ink);font-size:.78rem;font-weight:700;padding:1px 8px;border-radius:99px;margin-right:6px;white-space:nowrap}
+
+.tabs{display:inline-flex;background:var(--surface-2);border-radius:12px;padding:4px;gap:4px;margin:6px 0 26px}
+.tabs button,.seg button{font:inherit;font-size:.95rem;border:0;background:transparent;color:var(--ink);padding:8px 16px;border-radius:9px;cursor:pointer}
+.tabs button[aria-pressed="true"],.seg button[aria-pressed="true"]{background:var(--surface);box-shadow:0 0 0 1px var(--line);font-weight:700}
+.tabs button:hover,.seg button:hover{background:var(--surface)}
+
+.sec{margin:0 0 34px}
+.sec h2{font-size:1.35rem;margin-bottom:14px}
+.ideas{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.ideas li{display:grid;grid-template-columns:78px 1fr;gap:12px;align-items:start}
+.ideas .code{justify-self:start;margin-top:3px;margin-right:0}
+.callout{background:var(--orange-soft);border-left:5px solid var(--orange);padding:14px 18px;border-radius:0 10px 10px 0;margin:0 0 14px}
+.callout strong:first-child{color:var(--orange-ink)}
+.callout p:last-child{margin-bottom:0}
+.watch{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.watch li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.steps{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:8px}
+.say{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:0 10px 10px 0;padding:12px 18px;font-style:italic}
+.tbl{border-collapse:collapse;margin:8px 0 14px;font-variant-numeric:tabular-nums;max-width:100%}
+.tbl caption{caption-side:top;text-align:left;font-size:.9rem;color:var(--muted);padding-bottom:6px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 12px;text-align:center;font-size:.95rem}
+.tbl thead th{background:var(--surface-2)}
+.tbl tbody th{text-align:left;background:var(--surface-2);font-weight:700}
+.tbl tr:last-child td,.tbl tr:last-child th{font-weight:700}
+.scroll{overflow-x:auto;max-width:100%}
+
+.widget{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:0 0 34px}
+.w-head{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.w-head h3{font-size:1.15rem}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:10px;padding:3px;gap:3px;flex-wrap:wrap}
+.seg button{padding:6px 12px;font-size:.88rem}
+.w-body.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:18px;align-items:center}
+.w-note{margin:10px 0 0;min-height:3.2em}
+.w-out{margin:12px 0 0;padding:12px 14px;background:var(--surface-2);border-radius:10px}
+.w-out .calc{font-weight:700;font-variant-numeric:tabular-nums;margin-bottom:4px}
+svg{max-width:100%;height:auto;display:block}
+svg text{font-family:var(--body)}
+.ax{stroke:var(--muted);stroke-width:1}
+.tk{fill:var(--muted);font-size:11px}
+.sv{fill:var(--seg-text);font-size:14px;font-weight:700;text-anchor:middle}
+.lab{fill:var(--ink);font-size:13px;text-anchor:middle}
+.lg{fill:var(--ink);font-size:12px}
+.seg-yes{fill:var(--seg-yes)}.seg-no{fill:var(--seg-no)}
+.cells td button{all:unset;box-sizing:border-box;display:block;min-width:54px;padding:6px 10px;cursor:pointer;border-radius:6px;font-variant-numeric:tabular-nums}
+.cells td button:hover{background:var(--blue-soft)}
+.cells td button:focus-visible{outline:3px solid var(--focus)}
+.cells td.num{background:var(--orange-soft);box-shadow:inset 0 0 0 3px var(--orange)}
+.cells td.den{background:var(--blue-soft);box-shadow:inset 0 0 0 3px var(--blue-ink)}
+.keyline{display:flex;gap:16px;flex-wrap:wrap;font-size:.88rem;color:var(--muted);margin-top:6px}
+.sw{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:5px}
+.sw.n{background:var(--orange-soft);box-shadow:inset 0 0 0 2px var(--orange)}
+.sw.d{background:var(--blue-soft);box-shadow:inset 0 0 0 2px var(--blue-ink)}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.btn{font:inherit;font-size:.95rem;border:2px solid var(--blue-ink);background:var(--blue-ink);color:#fff;padding:8px 16px;border-radius:10px;cursor:pointer;font-weight:700}
+:root[data-theme="dark"] .btn{color:#0D1A2C}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn{color:#0D1A2C}}
+.btn.ghost{background:transparent;color:var(--blue-ink)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:hover:not(:disabled){filter:brightness(1.08)}
+.link{font:inherit;background:none;border:0;color:var(--blue-ink);text-decoration:underline;cursor:pointer;padding:6px 0}
+label.chk{display:flex;gap:8px;align-items:flex-start;margin:4px 0}
+.ctrl{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:10px}
+.ctrl label{font-weight:700;font-size:.95rem}
+select{font:inherit;font-size:.95rem;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);max-width:100%}
+.grid{border-collapse:separate;border-spacing:3px;margin:6px 0;font-variant-numeric:tabular-nums}
+.grid th{font-size:.82rem;color:var(--muted);font-weight:700;padding:2px 6px}
+.grid td{width:46px;height:38px;text-align:center;font-size:.8rem;border-radius:6px;background:var(--surface-2);color:var(--muted)}
+.grid td.in{background:var(--blue-soft);color:var(--ink);font-weight:700;box-shadow:inset 0 0 0 2px var(--blue-ink)}
+.grid td.comp{background:var(--orange-soft);color:var(--ink)}
+.grid td.a{background:var(--blue-soft);color:var(--ink);font-weight:700;box-shadow:inset 0 0 0 2px var(--blue-ink)}
+.grid td.b{background:var(--orange-soft);color:var(--ink);font-weight:700;box-shadow:inset 0 0 0 2px var(--orange)}
+.grid td.ab{background:var(--ink);color:var(--surface);font-weight:700}
+.gridwrap{overflow-x:auto}
+
+.tbl.ev td.ea{background:var(--blue-soft);box-shadow:inset 0 0 0 3px var(--blue-ink)}
+.tbl.ev td.eb{background:var(--orange-soft);box-shadow:inset 0 0 0 3px var(--orange)}
+.tbl.ev td.eab{background:var(--ink);color:var(--surface)}
+.status{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 16px;margin-bottom:22px;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 140px;height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--blue);width:0}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:0 0 20px;outline:none}
+.q-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.qnum{font-family:var(--head);font-weight:800;font-size:1.05rem}
+.qtext{margin-bottom:12px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{font:inherit;text-align:left;display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:start;width:100%;padding:10px 12px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--blue-ink);background:var(--blue-soft)}
+.opt:disabled{cursor:default;color:var(--ink)}
+.letter{font-family:var(--head);font-weight:800;color:var(--blue-ink)}
+.mark{font-size:.8rem;font-weight:700;white-space:nowrap;align-self:center}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.right .mark{color:var(--good)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.wrong .mark{color:var(--bad)}
+.fb{margin-top:14px;padding:12px 16px;border-radius:10px;background:var(--surface-2);outline:none}
+.fb.ok{border-left:5px solid var(--good)}
+.fb.no{border-left:5px solid var(--bad)}
+.fb.model{border-left:5px solid var(--blue)}
+.verdict{font-family:var(--head);font-weight:800;margin-bottom:6px}
+.fb.ok .verdict{color:var(--good)}.fb.no .verdict{color:var(--bad)}
+.work{font-variant-numeric:tabular-nums;background:var(--surface);border-radius:8px;padding:8px 12px;margin:6px 0}
+textarea{width:100%;font:inherit;padding:10px 12px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);resize:vertical;margin-bottom:8px}
+.wlabel{display:block;font-size:.92rem;color:var(--muted);margin-bottom:6px}
+.nav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:30px}
+.rows{display:flex;flex-direction:column;gap:10px;margin:0 0 28px}
+.row{all:unset;box-sizing:border-box;display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;cursor:pointer;width:100%}
+.row:hover{border-color:var(--blue-ink)}
+.row:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.row .big{font-family:var(--head);font-weight:800;font-size:2rem;color:var(--blue);line-height:1}
+.row h3{font-size:1.05rem;margin-bottom:3px}
+.row p{margin:0;font-size:.93rem;color:var(--muted)}
+.row .prog{font-size:.88rem;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.home-lede{font-size:1.1rem;color:var(--muted);max-width:60ch;margin:10px 0 24px}
+.fine{font-size:.88rem;color:var(--muted)}
+
+@media (max-width:860px){
+  body::before{background:var(--surface)}
+  .shell{grid-template-columns:1fr}
+  .rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;max-height:none;overflow:visible;padding:8px 10px;background:var(--surface);border-bottom:1px solid var(--line)}
+  .rail-title{display:none}
+  .rail ul{flex-direction:row;overflow-x:auto;gap:4px}
+  .rail-item{grid-template-columns:auto;justify-items:center;gap:0;padding:6px 12px;min-width:56px;border-left:0;border-bottom:4px solid transparent}
+  .rail-item[aria-current="page"]{border-left-color:transparent;border-bottom-color:var(--orange)}
+  .rt{display:none}
+  .rp{font-size:.72rem}
+  main{padding:20px 16px 70px}
+  .w-body.two{grid-template-columns:1fr}
+  .thead{gap:14px}
+  .ideas li{grid-template-columns:1fr;gap:4px}
+  .row{grid-template-columns:56px 1fr}
+  .row .prog{grid-column:2;text-align:left}
+  .grid td{width:38px;height:34px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+/* ---------- Unit 2b additions ---------- */
+.ideas.wide li{grid-template-columns:104px 1fr}
+.tonly{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 8px;border-radius:99px;background:var(--blue-soft);color:var(--blue-ink);margin-right:6px;text-transform:uppercase;letter-spacing:.04em;vertical-align:1px}
+@media (min-width:861px){.rail-item{grid-template-columns:54px 1fr auto}}
+.tbl.plain tr:last-child td,.tbl.plain tr:last-child th{font-weight:400}
+.tbl.plain td.sum{font-weight:700}
+input[type="number"]{font:inherit;font-size:.95rem;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:6.5em}
+input[type="range"]{accent-color:var(--blue-ink);width:160px;max-width:100%}
+.ctrl .val{font-variant-numeric:tabular-nums;font-weight:700;min-width:2.6em;display:inline-block}
+.bar-in{fill:var(--orange)}
+.bar-out{fill:var(--seg-yes);opacity:.45}
+.curve{fill:none;stroke:var(--ink);stroke-width:2}
+.shade{fill:var(--orange);opacity:.55}
+.emp{stroke:var(--muted);stroke-width:1;stroke-dasharray:4 4}
+.paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:6px 0 28px}
+.pathcard{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-top:8px solid var(--orange);border-radius:14px;padding:20px 22px;cursor:pointer}
+.pathcard.test{border-top-color:var(--blue)}
+.pathcard:hover{box-shadow:0 0 0 2px var(--blue-ink)}
+.pathcard:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.pathcard .kicker{font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--orange-ink)}
+.pathcard.test .kicker{color:var(--blue-ink)}
+.pathcard h2{font-size:clamp(1.5rem,4vw,2rem)}
+.pathcard ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.pathcard li{display:grid;grid-template-columns:48px 1fr;gap:8px;font-size:.95rem}
+.pathcard li b{font-family:var(--head);color:var(--blue-ink)}
+.pathcard li.off{color:var(--muted);text-decoration:line-through}
+.pathcard .pp{font-size:.88rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.pathcard .go{margin-top:auto;font-weight:700;color:var(--blue-ink)}
+.rail-sub{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 10px 4px}
+.badge{display:inline-block;font-size:.8rem;font-weight:700;padding:2px 10px;border-radius:99px;background:var(--orange-soft);color:var(--orange-ink);margin-bottom:8px}
+.badge.test{background:var(--blue-soft);color:var(--blue-ink)}
+.thead>div{min-width:0}
+.row>span{min-width:0}
+@media (max-width:860px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .paths{grid-template-columns:1fr}
+  .rail-sub{display:none}
+  .ideas.wide li{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <nav class="rail" id="rail" aria-label="Review sections"></nav>
+  <main id="main" tabindex="-1"></main>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- storage (per-viewer convenience only) ---------- */
+var KEY='apstats-unit2b-review-2.8-2.11';
+var memProgress={};
+function loadProgress(){ try{ var v=localStorage.getItem(KEY); return v?JSON.parse(v):{}; }catch(e){ return memProgress; } }
+function saveProgress(){ memProgress=progress; try{ localStorage.setItem(KEY,JSON.stringify(progress)); }catch(e){} }
+var progress=loadProgress();
+
+/* ---------- shared tables ---------- */
+var TACO='<div class="scroll"><table class="tbl plain"><caption>X = number of tacos ordered by a randomly selected customer at a food truck</caption><tbody><tr><th scope="row">Tacos, x</th><td>1</td><td>2</td><td>3</td><td>4</td></tr><tr><th scope="row">P(X = x)</th><td>0.30</td><td>0.40</td><td>0.20</td><td>0.10</td></tr></tbody></table></div>';
+var TACOCALC='<div class="scroll"><table class="tbl plain"><caption>Finding the mean and standard deviation of X</caption><thead><tr><th scope="col">x</th><th scope="col">P(x)</th><th scope="col">x · P(x)</th><th scope="col">(x − μ)² · P(x)</th></tr></thead><tbody>'+
+ '<tr><td>1</td><td>0.30</td><td>0.30</td><td>(1 − 2.1)² · 0.30 = 0.363</td></tr>'+
+ '<tr><td>2</td><td>0.40</td><td>0.80</td><td>(2 − 2.1)² · 0.40 = 0.004</td></tr>'+
+ '<tr><td>3</td><td>0.20</td><td>0.60</td><td>(3 − 2.1)² · 0.20 = 0.162</td></tr>'+
+ '<tr><td>4</td><td>0.10</td><td>0.40</td><td>(4 − 2.1)² · 0.10 = 0.361</td></tr>'+
+ '<tr><th scope="row">Sum</th><td>1.00</td><td class="sum">μ = 2.1</td><td class="sum">σ² = 0.89</td></tr></tbody></table></div>'+
+ '<p class="work">σ = √0.89 ≈ 0.943 tacos</p>';
+
+/* ---------- content ---------- */
+var TOPICS=[
+{
+ key:'t28', num:'2.8', short:'Random variables and distributions',
+ title:'Introduction to random variables and probability distributions',
+ blurb:'Define a random variable, check that a distribution is valid, and find probabilities from it.',
+ objectives:['Represent the probability distribution of a discrete random variable with a table, a graph, or a formula.','Calculate probabilities for a random variable from its probability distribution.','Tell discrete and continuous random variables apart, and use area for continuous ones.'],
+ review:
+ '<section class="sec"><h2>The big ideas</h2><ul class="ideas wide">'+
+ '<li><span class="code">Define</span><div>A <strong>random variable</strong> is a numerical outcome of a random process. Use a capital letter for the variable (X) and a lowercase letter for one of its values (x). Always define it in context: “Let X = the number of tacos ordered by a randomly selected customer.”</div></li>'+
+ '<li><span class="code">Discrete</span><div>A <strong>discrete</strong> random variable takes a countable set of values, usually counts like 0, 1, 2, …. Its <strong>probability distribution</strong> gives every possible value and its probability, as a table, a histogram, or a formula.</div></li>'+
+ '<li><span class="code">Valid</span><div>A probability distribution is <strong>valid</strong> when every probability is between 0 and 1 and the probabilities add to exactly 1.</div></li>'+
+ '<li><span class="code">Find P</span><div>For a discrete random variable, find the probability of an event by <strong>adding the probabilities</strong> of the values in it. Read the inequality carefully, because whether the endpoint is included changes the answer.</div></li>'+
+ '<li><span class="code">Continuous</span><div>A <strong>continuous</strong> random variable can take any value in an interval, like a time or a weight. Probabilities are <strong>areas under a density curve</strong>, and the total area is 1. The probability of any single exact value is 0, so P(X &lt; a) = P(X ≤ a).</div></li>'+
+ '</ul></section>'+
+ '<div class="widget" data-widget="dist"></div>'+
+ '<section class="sec"><h2>Turning words into symbols</h2><div class="scroll"><table class="tbl plain"><thead><tr><th scope="col">The problem says</th><th scope="col">Symbols</th><th scope="col">Taco values included</th></tr></thead><tbody>'+
+ '<tr><td>“at least 3”, “3 or more”, “no fewer than 3”</td><td>X ≥ 3</td><td>3, 4</td></tr>'+
+ '<tr><td>“more than 3”</td><td>X &gt; 3</td><td>4</td></tr>'+
+ '<tr><td>“at most 3”, “3 or fewer”, “no more than 3”</td><td>X ≤ 3</td><td>1, 2, 3</td></tr>'+
+ '<tr><td>“fewer than 3”, “less than 3”</td><td>X &lt; 3</td><td>1, 2</td></tr>'+
+ '</tbody></table></div></section>'+
+ '<section class="sec"><h2>Watch out for</h2><ul class="watch">'+
+ '<li><strong>Including or leaving out the endpoint.</strong> For a discrete random variable, P(X &lt; 3) and P(X ≤ 3) are different. For a continuous one they are the same.</li>'+
+ '<li><strong>“Adds to 1” is not enough.</strong> A table with a negative probability (or one bigger than 1) is not valid, even if the column sums to 1.</li>'+
+ '<li><strong>Mixing up values and probabilities.</strong> On a probability histogram, the values of X go on the horizontal axis and the probabilities are the bar heights.</li>'+
+ '<li><strong>An undefined variable.</strong> “X = tacos” is vague. Say what is counted or measured and for whom.</li>'+
+ '</ul></section>',
+ questions:[
+  {id:'t28-1',type:'mc',tag:'2.8 · Discrete vs. continuous',
+   q:'Which of these is a <strong>discrete</strong> random variable?',
+   opts:['The time it takes a randomly selected student to run a mile','The number of siblings of a randomly selected student','The height of a randomly selected student','The amount of rain that falls in a randomly selected week'],correct:1,
+   why:'<p>The number of siblings is a count (0, 1, 2, …), so it is discrete. Time, height, and amount of rain are measurements that can take any value in an interval, so they are continuous.</p>'},
+  {id:'t28-2',type:'mc',tag:'2.8 · Valid distributions',
+   q:'<p>X can take the values 0, 1, 2, and 3. P(X = 0) = 0.15, P(X = 1) = 0.35, and P(X = 3) = 0.10. What must P(X = 2) be?</p>',
+   opts:['0.25','0.40','0.60','It can’t be determined.'],correct:1,
+   why:'<p class="work">Expression: P(X = 2) = 1 − [P(X = 0) + P(X = 1) + P(X = 3)]<br>Substitute: 1 − (0.15 + 0.35 + 0.10)<br>Answer: 1 − 0.60 = 0.40</p><p>The probabilities in a valid distribution must add to 1. 0.60 is the sum of the other three, not the missing value.</p>'},
+  {id:'t28-3',type:'mc',tag:'2.8 · Valid distributions',
+   q:'Each list gives the probabilities for a random variable with three possible values. Which one is <strong>not</strong> a valid probability distribution?',
+   opts:['0.2, 0.3, 0.5','0.5, 0.6, −0.1','0.1, 0.1, 0.8','0.25, 0.25, 0.5'],correct:1,
+   why:'<p>All four lists add to 1, but B includes −0.1. Every probability must be between 0 and 1, so B is not valid.</p>'},
+  {id:'t28-4',type:'mc',tag:'2.8 · Finding probabilities',
+   q:'<p>Use the taco distribution. What is the probability that a randomly selected customer orders <strong>at least 3</strong> tacos?</p>'+TACO,
+   opts:['0.20','0.30','0.70','0.10'],correct:1,
+   why:'<p class="work">Expression: P(X ≥ 3) = P(X = 3) + P(X = 4)<br>Substitute: 0.20 + 0.10<br>Answer: 0.30</p><p>“At least 3” includes 3. Choice A uses only X = 3, and choice C is P(X ≥ 2).</p>'},
+  {id:'t28-5',type:'mc',tag:'2.8 · Finding probabilities',
+   q:'<p>Use the taco distribution. What is P(X &lt; 3)?</p>'+TACO,
+   opts:['0.90','0.70','0.20','0.30'],correct:1,
+   why:'<p class="work">Expression: P(X &lt; 3) = P(X = 1) + P(X = 2)<br>Substitute: 0.30 + 0.40<br>Answer: 0.70</p><p>“Less than 3” does not include 3. Choice A is P(X ≤ 3), which adds the 0.20 for X = 3.</p>'},
+  {id:'t28-6',type:'mc',tag:'2.8 · Continuous',
+   q:'The time X (in minutes) a customer waits for an order is a continuous random variable. Which statement is true?',
+   opts:['P(X = 5) is the height of the density curve at 5.','P(X = 5) = 0, so P(X ≤ 5) = P(X &lt; 5).','P(X ≤ 5) is always greater than P(X &lt; 5).','A continuous random variable can’t have probabilities.'],correct:1,
+   why:'<p>For a continuous random variable, probability is area under the density curve. The area above a single point is 0, so including or leaving out an endpoint doesn’t change the probability. The height of the curve is not a probability.</p>'},
+  {id:'t28-7',type:'written',tag:'2.8 · Building a distribution',
+   q:'<p>A fair coin is flipped twice. Let X = the number of heads. Make the probability distribution of X as a table, show that it is valid, and find P(X ≥ 1).</p>',
+   model:'<p>The sample space is {HH, HT, TH, TT}, and the four outcomes are equally likely.</p><div class="scroll"><table class="tbl plain"><tbody><tr><th scope="row">x</th><td>0</td><td>1</td><td>2</td></tr><tr><th scope="row">P(X = x)</th><td>1/4</td><td>2/4</td><td>1/4</td></tr></tbody></table></div><p>Valid: each probability is between 0 and 1, and 1/4 + 2/4 + 1/4 = 1.</p><p class="work">P(X ≥ 1) = P(X = 1) + P(X = 2) = 2/4 + 1/4 = 3/4 = 0.75<br>(or 1 − P(X = 0) = 1 − 1/4 = 0.75)</p>',
+   checklist:['Listed every value of X (0, 1, and 2)','Gave the correct probability for each, including 2/4 for one head','Showed the probabilities are between 0 and 1 and add to 1','Found P(X ≥ 1) = 0.75 with the work shown']}
+ ]
+},
+{
+ key:'t29', num:'2.9', short:'Parameters of random variables',
+ title:'Parameters of random variables',
+ blurb:'Mean (expected value) and standard deviation, plus what happens when you transform or combine random variables.',
+ blurbQuiz:'Mean (expected value) and standard deviation of a discrete random variable: how to calculate them and what they mean.',
+ objectives:['Calculate and interpret the mean (expected value) and standard deviation of a discrete random variable.','TEST:Find the mean and standard deviation of a linear transformation, Y = a + bX.','TEST:Find the mean and standard deviation of a sum or difference of two independent random variables.'],
+ review:
+ '<div class="callout quiz-only"><p><strong>Quiz note.</strong> Transforming random variables (Y = a + bX) and combining them (X + Y, X − Y) aren’t on the quiz, so they’re left out here. You’ll find them in test prep.</p></div>'+
+ '<section class="sec"><h2>The big ideas</h2><ul class="ideas wide">'+
+ '<li><span class="code">Mean</span><div>The <strong>mean</strong> (expected value) of a discrete random variable is μ<sub>X</sub> = Σ x · P(x). It is the long-run average value of X over many, many repetitions. It doesn’t have to be a value X can actually take.</div></li>'+
+ '<li><span class="code">SD</span><div>The <strong>variance</strong> is σ²<sub>X</sub> = Σ (x − μ<sub>X</sub>)² · P(x), and the <strong>standard deviation</strong> σ<sub>X</sub> is its square root. σ<sub>X</sub> describes how much values of X typically vary from the mean.</div></li>'+
+ '<li class="test-only"><span class="code">Transform</span><div><span class="tonly">Test only</span>For <strong>Y = a + bX</strong>: μ<sub>Y</sub> = a + bμ<sub>X</sub> and σ<sub>Y</sub> = |b|σ<sub>X</sub>. Adding a constant shifts the center but leaves the spread alone. Multiplying by b scales both the center and the spread.</div></li>'+
+ '<li class="test-only"><span class="code">Combine</span><div><span class="tonly">Test only</span>For any X and Y, <strong>μ<sub>X+Y</sub> = μ<sub>X</sub> + μ<sub>Y</sub></strong> and <strong>μ<sub>X−Y</sub> = μ<sub>X</sub> − μ<sub>Y</sub></strong>. If X and Y are <strong>independent</strong>, then σ²<sub>X+Y</sub> = σ²<sub>X−Y</sub> = σ²<sub>X</sub> + σ²<sub>Y</sub>.</div></li>'+
+ '</ul></section>'+
+ '<section class="sec"><h2>Worked example: the taco distribution</h2>'+TACO+TACOCALC+'</section>'+
+ '<section class="sec"><h2>What a complete interpretation sounds like</h2><p class="say" style="margin-bottom:12px">Mean: “If we randomly select many, many customers, the average number of tacos ordered will be about 2.1.”</p><p class="say">Standard deviation: “The number of tacos ordered by a randomly selected customer typically varies from the mean of 2.1 by about 0.94 tacos.”</p></section>'+
+ '<div class="test-only"><div class="callout"><p><strong>Test only.</strong> Transforming random variables (this section) and combining them (below) are on the unit test but not the quiz.</p></div><div class="widget" data-widget="transform"></div></div>'+
+ '<div class="test-only"><div class="callout"><p><strong>Variances add. Standard deviations don’t.</strong> To combine independent random variables, square each SD, add the variances (for a sum <em>or</em> a difference), then take the square root.</p></div>'+
+ '<div class="widget" data-widget="combine"></div></div>'+
+ '<section class="sec"><h2>Watch out for</h2><ul class="watch">'+
+ '<li><strong>Averaging the values.</strong> (1 + 2 + 3 + 4) ÷ 4 = 2.5 ignores the probabilities. Weight each value by its probability.</li>'+
+ '<li class="test-only"><span class="tonly">Test only</span><strong>Adding standard deviations.</strong> σ<sub>X+Y</sub> is not σ<sub>X</sub> + σ<sub>Y</sub>. Add the variances, then take the square root.</li>'+
+ '<li class="test-only"><span class="tonly">Test only</span><strong>Subtracting variances for X − Y.</strong> A difference is still more variable than either piece, so the variances still add.</li>'+
+ '<li class="test-only"><span class="tonly">Test only</span><strong>Skipping independence.</strong> The variance rule needs X and Y to be independent. Say so when you use it.</li>'+
+ '<li class="test-only"><span class="tonly">Test only</span><strong>2X is not X₁ + X₂.</strong> Doubling one customer’s order (2X) has SD 2σ. Adding two different customers’ orders (X₁ + X₂) has SD √(σ² + σ²) = √2 · σ.</li>'+
+ '</ul></section>',
+ questions:[
+  {id:'t29-1',type:'mc',tag:'2.9 · Mean',
+   q:'<p>Use the taco distribution. What is the mean number of tacos ordered, μ<sub>X</sub>?</p>'+TACO,
+   opts:['2.5','2.1','2','1.0'],correct:1,
+   why:'<p class="work">Expression: μ<sub>X</sub> = Σ x · P(x)<br>Substitute: 1(0.30) + 2(0.40) + 3(0.20) + 4(0.10)<br>Answer: 0.30 + 0.80 + 0.60 + 0.40 = 2.1</p><p>2.5 is the plain average of the values 1 through 4, which ignores that some values are more likely than others.</p>'},
+  {id:'t29-2',type:'mc',tag:'2.9 · Interpreting the mean',
+   q:'The mean number of tacos ordered is μ<sub>X</sub> = 2.1. Which is the best interpretation?',
+   opts:['Most customers order 2.1 tacos.','If many, many customers are randomly selected, the average number of tacos ordered will be about 2.1.','A customer is expected to order exactly 2.1 tacos.','About 21% of customers order 2 tacos.'],correct:1,
+   why:'<p>The mean of a random variable is a long-run average over many repetitions. No customer can order 2.1 tacos, so A and C can’t be right, and the mean doesn’t give the probability of any one value (D).</p>'},
+  {id:'t29-3',type:'mc',tag:'2.9 · Interpreting the SD',
+   q:'For the taco distribution, σ<sub>X</sub> ≈ 0.94. Which is the best interpretation?',
+   opts:['About 94% of customers order between 1 and 3 tacos.','The number of tacos ordered by a randomly selected customer typically varies from the mean of 2.1 by about 0.94 tacos.','The average customer orders 0.94 tacos.','Customers order 0.94 more tacos than the mean.'],correct:1,
+   why:'<p>The standard deviation describes a typical distance from the mean. It isn’t a percent (A), a mean (C), or a fixed amount every customer is above the mean (D).</p>'},
+  {id:'t29-4',type:'mc',testOnly:true,tag:'2.9 · Linear transformation (test only)',
+   q:'Each taco costs $3, and every order has a $1 service fee, so a customer’s bill is Y = 1 + 3X. Using μ<sub>X</sub> = 2.1 and σ<sub>X</sub> ≈ 0.943, what are the mean and standard deviation of Y?',
+   opts:['μ<sub>Y</sub> = $7.30, σ<sub>Y</sub> ≈ $3.83','μ<sub>Y</sub> = $7.30, σ<sub>Y</sub> ≈ $2.83','μ<sub>Y</sub> = $6.30, σ<sub>Y</sub> ≈ $2.83','μ<sub>Y</sub> = $7.30, σ<sub>Y</sub> ≈ $0.94'],correct:1,
+   why:'<p class="work">μ<sub>Y</sub> = 1 + 3μ<sub>X</sub> = 1 + 3(2.1) = $7.30<br>σ<sub>Y</sub> = |3| · σ<sub>X</sub> = 3(0.943) ≈ $2.83</p><p>The $1 fee shifts every bill by the same amount, so it changes the mean but not the spread. Choice A adds the fee to the SD by mistake.</p>'},
+  {id:'t29-5',type:'mc',testOnly:true,tag:'2.9 · Combining (test only)',
+   q:'Maya’s time to get ready, X, has mean 30 minutes and SD 3 minutes. Her commute, Y, has mean 20 minutes and SD 4 minutes. X and Y are independent. What are the mean and SD of her total time T = X + Y?',
+   opts:['Mean 50, SD 7','Mean 50, SD 5','Mean 50, SD 1','Mean 50, SD 25'],correct:1,
+   why:'<p class="work">μ<sub>T</sub> = 30 + 20 = 50 minutes<br>σ²<sub>T</sub> = 3² + 4² = 9 + 16 = 25 (variances add, since X and Y are independent)<br>σ<sub>T</sub> = √25 = 5 minutes</p><p>7 adds the SDs. 25 is the variance, not the SD.</p>'},
+  {id:'t29-6',type:'mc',testOnly:true,tag:'2.9 · Combining (test only)',
+   q:'Using the same X (SD 3) and Y (SD 4), which is the SD of the difference D = X − Y?',
+   opts:['1, because 4 − 3 = 1','√7 ≈ 2.65, because 16 − 9 = 7','5, because variances add: √(9 + 16) = 5','7, because 3 + 4 = 7'],correct:2,
+   why:'<p>For independent random variables, variances add for a difference too: σ²<sub>D</sub> = 3² + 4² = 25, so σ<sub>D</sub> = 5. Subtracting adds uncertainty from both pieces, so the spread can’t shrink.</p>'},
+  {id:'t29-7',type:'mc',tag:'2.9 · Expected value',
+   q:'A game costs $2 to play. You roll a fair die and win $5 for a 6, $1 for a 4 or 5, and nothing otherwise. What is the expected value of your <strong>net</strong> gain per game?',
+   opts:['About $1.17','About −$0.83','$0','−$2.00'],correct:1,
+   why:'<p class="work">Expected winnings: 5(1/6) + 1(2/6) + 0(3/6) = 7/6 ≈ $1.17<br>Expected net gain: 7/6 − 2 = −5/6 ≈ −$0.83</p><p>Over many, many games, a player loses about 83 cents per game on average. $1.17 forgets the $2 cost.</p>'},
+  {id:'t29-8',type:'written',testOnly:true,tag:'2.9 · Combining (test only)',
+   q:'<p>A bag of flour has weight F with mean 5.00 lb and SD 0.10 lb. It is packed in a container with weight C, mean 1.20 lb and SD 0.05 lb. Find the mean and standard deviation of the total weight T = F + C. State any assumption you need.</p>',
+   model:'<p class="work">μ<sub>T</sub> = μ<sub>F</sub> + μ<sub>C</sub> = 5.00 + 1.20 = 6.20 lb</p><p>Assuming F and C are independent:</p><p class="work">σ²<sub>T</sub> = σ²<sub>F</sub> + σ²<sub>C</sub> = 0.10² + 0.05² = 0.0100 + 0.0025 = 0.0125<br>σ<sub>T</sub> = √0.0125 ≈ 0.112 lb</p><p>The mean total weight is 6.20 lb, and total weights typically vary from 6.20 lb by about 0.112 lb.</p>',
+   checklist:['Added the means to get 6.20 lb','Squared the SDs and added the variances','Took the square root to get about 0.112 lb','Stated that F and C must be independent']},
+  {id:'t29-9',type:'written',tag:'2.9 · Mean and SD',
+   q:'<p>Let X = the number of goals a soccer team scores in a randomly selected game. Find the mean and standard deviation of X, and interpret the mean in context.</p><div class="scroll"><table class="tbl plain"><tbody><tr><th scope="row">Goals, x</th><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><th scope="row">P(X = x)</th><td>0.20</td><td>0.40</td><td>0.30</td><td>0.10</td></tr></tbody></table></div>',
+   model:'<p class="work">μ<sub>X</sub> = Σ x · P(x) = 0(0.20) + 1(0.40) + 2(0.30) + 3(0.10) = 1.3 goals<br>σ²<sub>X</sub> = Σ (x − μ)² · P(x) = (0 − 1.3)²(0.20) + (1 − 1.3)²(0.40) + (2 − 1.3)²(0.30) + (3 − 1.3)²(0.10)<br>= 0.338 + 0.036 + 0.147 + 0.289 = 0.81<br>σ<sub>X</sub> = √0.81 = 0.9 goals</p><p>If many, many games are randomly selected, the team will average about 1.3 goals per game. The number of goals in a game typically varies from 1.3 by about 0.9 goals.</p>',
+   checklist:['Wrote Σ x · P(x) with the values substituted','Got μ = 1.3','Squared deviations from 1.3, weighted by probabilities, then took the square root to get 0.9','Interpreted the mean as a long-run average in context']}
+ ]
+},
+{
+ key:'t210', num:'2.10', short:'The binomial distribution',
+ title:'The binomial distribution',
+ blurb:'Recognize a binomial setting, then find probabilities, the mean, and the standard deviation.',
+ objectives:['Decide whether a setting is binomial, and say why.','Calculate binomial probabilities with the formula or a calculator, showing the parameters.','Calculate and interpret the mean and standard deviation of a binomial random variable.'],
+ review:
+ '<section class="sec"><h2>The big ideas</h2><ul class="ideas wide">'+
+ '<li><span class="code">Setting</span><div>A <strong>binomial setting</strong> has: <strong>B</strong>inary outcomes on each trial (success or failure), <strong>I</strong>ndependent trials, a fixed <strong>N</strong>umber of trials n, and the <strong>S</strong>ame probability of success p on every trial (BINS).</div></li>'+
+ '<li><span class="code">X</span><div>The binomial random variable X counts the number of successes in the n trials, so its values are 0, 1, 2, …, n.</div></li>'+
+ '<li><span class="code">Formula</span><div><strong>P(X = k) = (n choose k) · p<sup>k</sup> · (1 − p)<sup>n − k</sup></strong>, where (n choose k) = n! ÷ [k!(n − k)!] counts the ways to arrange k successes among n trials.</div></li>'+
+ '<li><span class="code">Mean, SD</span><div><strong>μ<sub>X</sub> = np</strong> and <strong>σ<sub>X</sub> = √(np(1 − p))</strong>.</div></li>'+
+ '<li><span class="code">10% rule</span><div>When you sample <strong>without replacement</strong>, the trials aren’t exactly independent. You can treat them as independent if the sample is no more than 10% of the population (n ≤ 0.10N).</div></li>'+
+ '</ul></section>'+
+ '<section class="sec"><h2>Calculator commands</h2><div class="scroll"><table class="tbl plain"><thead><tr><th scope="col">You want</th><th scope="col">Use</th></tr></thead><tbody>'+
+ '<tr><td>P(X = k)</td><td>binompdf(n, p, k)</td></tr>'+
+ '<tr><td>P(X ≤ k)</td><td>binomcdf(n, p, k)</td></tr>'+
+ '<tr><td>P(X &lt; k)</td><td>binomcdf(n, p, k − 1)</td></tr>'+
+ '<tr><td>P(X ≥ k)</td><td>1 − binomcdf(n, p, k − 1)</td></tr>'+
+ '<tr><td>P(X &gt; k)</td><td>1 − binomcdf(n, p, k)</td></tr>'+
+ '</tbody></table></div><div class="callout"><p><strong>Calculator syntax alone isn’t enough.</strong> Name the distribution and its parameters, then write the probability you want. For example: “X is binomial with n = 5 and p = 0.7. P(X ≥ 4) = 1 − P(X ≤ 3) ≈ 0.528.” If you write a calculator command, label each input.</p></div></section>'+
+ '<div class="widget" data-widget="binom"></div>'+
+ '<section class="sec"><h2>Watch out for</h2><ul class="watch">'+
+ '<li><strong>Off by one with “at least.”</strong> P(X ≥ 4) = 1 − P(X ≤ 3), not 1 − P(X ≤ 4).</li>'+
+ '<li><strong>No fixed number of trials.</strong> “Roll until you get a 6” counts trials, not successes, so it isn’t binomial.</li>'+
+ '<li><strong>Wrong SD formula.</strong> σ = √(np(1 − p)). Leaving out (1 − p) or forgetting the square root are common slips.</li>'+
+ '<li><strong>Checking conditions without context.</strong> Say what a success is, what n and p are, and why the trials are independent in this problem.</li>'+
+ '</ul></section>',
+ questions:[
+  {id:'t210-1',type:'mc',tag:'2.10 · Binomial setting',
+   q:'Which of these is a binomial setting?',
+   opts:['Roll a die until you get a 6. X = the number of rolls.','Flip a fair coin 10 times. X = the number of heads.','Choose 4 students without replacement from a class of 12. X = the number who are juniors.','Ask 10 students how many minutes they spent on homework. X = the total minutes.'],correct:1,
+   why:'<p>Coin flips have two outcomes, are independent, have a fixed n = 10, and have the same p = 0.5 each time.</p><p>A has no fixed number of trials. C samples 4 of 12 (33%) without replacement, so the trials aren’t close to independent. D isn’t counting successes at all.</p>'},
+  {id:'t210-2',type:'mc',tag:'2.10 · Binomial probability',
+   q:'A basketball player makes 70% of free throws, and shots are independent. She takes 5 shots. What is the probability she makes <strong>exactly 4</strong>?',
+   opts:['0.168','0.360','0.528','0.240'],correct:1,
+   why:'<p class="work">X is binomial with n = 5, p = 0.7.<br>Expression: P(X = 4) = (5 choose 4)(0.7)⁴(0.3)¹<br>Substitute: 5(0.2401)(0.3)<br>Answer: ≈ 0.360</p><p>0.168 is P(X = 5) = 0.7⁵, and 0.528 is P(X ≥ 4).</p>'},
+  {id:'t210-3',type:'mc',tag:'2.10 · Binomial probability',
+   q:'Same player, 5 shots. What is the probability she makes <strong>at least 4</strong>?',
+   opts:['0.360','0.832','0.528','0.472'],correct:2,
+   why:'<p class="work">P(X ≥ 4) = P(X = 4) + P(X = 5) = 0.360 + 0.168 = 0.528<br>or 1 − P(X ≤ 3) = 1 − binomcdf(n = 5, p = 0.7, k = 3) ≈ 0.528</p><p>0.832 is 1 − P(X = 5), which is P(X ≤ 4). 0.472 is P(X ≤ 3), the complement of the right answer.</p>'},
+  {id:'t210-4',type:'mc',tag:'2.10 · Mean and SD',
+   q:'X is binomial with n = 50 and p = 0.2. What are the mean and standard deviation of X?',
+   opts:['Mean 10, SD ≈ 2.83','Mean 10, SD 8','Mean 10, SD ≈ 3.16','Mean 40, SD ≈ 2.83'],correct:0,
+   why:'<p class="work">μ<sub>X</sub> = np = 50(0.2) = 10<br>σ<sub>X</sub> = √(np(1 − p)) = √(50 · 0.2 · 0.8) = √8 ≈ 2.83</p><p>8 is the variance. 3.16 is √(np), which leaves out (1 − p). 40 is the mean number of failures.</p>'},
+  {id:'t210-5',type:'mc',tag:'2.10 · Complement',
+   q:'A machine makes defective parts 3% of the time, independently. In a batch of 20 parts, what is the probability that <strong>at least one</strong> is defective?',
+   opts:['0.600','0.544','0.456','0.030'],correct:2,
+   why:'<p class="work">P(X ≥ 1) = 1 − P(X = 0) = 1 − (0.97)²⁰ ≈ 1 − 0.544 = 0.456</p><p>0.544 is the probability of no defective parts. 0.600 comes from 20 × 0.03, which is the <em>mean</em> number of defective parts, not a probability.</p>'},
+  {id:'t210-6',type:'mc',tag:'2.10 · 10% condition',
+   q:'A school has 1,200 students, and 12% are left-handed. You randomly select 15 students without replacement. Why is it reasonable to use a binomial model for X = the number who are left-handed?',
+   opts:['Because 15 is less than 30.','Because the sample of 15 is less than 10% of the 1,200 students, so the selections are approximately independent.','Because left-handedness is rare.','It isn’t reasonable, since sampling without replacement is never binomial.'],correct:1,
+   why:'<p>Sampling without replacement makes the trials slightly dependent. Since 15 ≤ 0.10(1,200) = 120, the dependence is small enough to ignore, so the binomial model is a good approximation.</p>'},
+  {id:'t210-7',type:'written',tag:'2.10 · Full problem',
+   q:'<p>A quiz has 10 multiple-choice questions, each with 4 choices. A student guesses randomly on every question. Let X = the number of correct answers. (a) Explain why X is binomial. (b) Find P(X ≥ 6). (c) Find the mean of X and interpret it.</p>',
+   model:'<p><strong>(a)</strong> Each question is a success (correct) or failure; random guesses are independent from question to question; there are n = 10 questions; and p = 1/4 = 0.25 on every question.</p><p class="work"><strong>(b)</strong> X is binomial with n = 10, p = 0.25.<br>P(X ≥ 6) = 1 − P(X ≤ 5) = 1 − binomcdf(n = 10, p = 0.25, k = 5) ≈ 0.0197</p><p><strong>(c)</strong> μ<sub>X</sub> = np = 10(0.25) = 2.5. If many, many students guessed on this whole quiz, they would average about 2.5 correct answers.</p>',
+   checklist:['Checked all four conditions in context (success/failure, independent, n = 10, p = 0.25)','Wrote P(X ≥ 6) = 1 − P(X ≤ 5), not 1 − P(X ≤ 6)','Got about 0.0197 with parameters labeled','Found 2.5 and interpreted it as a long-run average']}
+ ]
+},
+{
+ key:'t211', num:'2.11', short:'The normal distribution',
+ title:'The normal distribution',
+ blurb:'z-scores, the empirical rule, and finding areas and values under a normal curve.',
+ objectives:['Use a normal distribution to model a continuous random variable, and describe it by its mean μ and standard deviation σ.','Calculate and interpret z-scores, and use the empirical rule.','Find probabilities (areas) for a normal distribution, and find the value that matches a given percentile.'],
+ review:
+ '<section class="sec"><h2>The big ideas</h2><ul class="ideas wide">'+
+ '<li><span class="code">Shape</span><div>A <strong>normal distribution</strong> is a continuous distribution with a symmetric, bell-shaped density curve. It is fully described by its mean μ and standard deviation σ. We write X ~ N(μ, σ).</div></li>'+
+ '<li><span class="code">Area</span><div>Probability is <strong>area under the curve</strong>. The total area is 1, and P(X = a) = 0, so &lt; and ≤ give the same probability.</div></li>'+
+ '<li><span class="code">68–95–99.7</span><div>The <strong>empirical rule</strong>: about 68% of values are within 1σ of the mean, about 95% within 2σ, and about 99.7% within 3σ.</div></li>'+
+ '<li><span class="code">z-score</span><div><strong>z = (x − μ) ÷ σ</strong> tells how many standard deviations a value is from the mean, and in which direction. Positive means above the mean.</div></li>'+
+ '<li><span class="code">Two jobs</span><div><strong>Value → area:</strong> find a probability with normalcdf or a table. <strong>Area → value:</strong> find a percentile with invNorm, or use x = μ + zσ.</div></li>'+
+ '<li class="test-only"><span class="code">2.9 link</span><div><span class="tonly">Test only</span>If X and Y are independent and both normal, then X + Y and X − Y are normal too, with the mean and SD from the 2.9 rules.<span class="test-only"> A linear transformation Y = a + bX of a normal random variable is also normal.</span></div></li>'+
+ '</ul></section>'+
+ '<div class="callout"><p><strong>Show your work the AP way.</strong> (1) Name the distribution and its parameters. (2) Show the boundary and the direction, with a sketch or a z-score. (3) Give the answer in context.</p><p class="work" style="margin-bottom:0">X = length of a randomly chosen song, X ~ N(210, 30) seconds.<br>P(X &gt; 240): z = (240 − 210) ÷ 30 = 1.00, and P(Z &gt; 1.00) ≈ 0.1587.<br>About 15.9% of songs are longer than 240 seconds.</p></div>'+
+ '<div class="widget" data-widget="normal"></div>'+
+ '<section class="sec"><h2>Watch out for</h2><ul class="watch">'+
+ '<li><strong>Area or value?</strong> normalcdf turns values into an area. invNorm turns an area into a value. Read whether the question asks for a probability or a cutoff.</li>'+
+ '<li><strong>The wrong tail.</strong> “Longer than” is a right-tail area. A quick sketch with the region shaded prevents most mistakes.</li>'+
+ '<li><strong>Variance instead of SD.</strong> Normal calculations need σ. If a problem gives a variance, take the square root first.</li>'+
+ '<li><strong>Using the empirical rule on non-normal data.</strong> 68–95–99.7 only works for distributions that are approximately normal.</li>'+
+ '<li><strong>Unlabeled calculator work.</strong> normalcdf(190, 1000, 210, 30) alone may not earn credit. Label the inputs or show the z-score.</li>'+
+ '</ul></section>',
+ questions:[
+  {id:'t211-1',type:'mc',tag:'2.11 · Empirical rule',
+   q:'Song lengths on a playlist are approximately normal with mean 210 seconds and SD 30 seconds. About what percent of songs are between 180 and 240 seconds?',
+   opts:['34%','68%','95%','99.7%'],correct:1,
+   why:'<p>180 and 240 are each 1 SD from the mean (210 ± 30). About 68% of a normal distribution is within 1 SD of the mean. 34% is just one side of that.</p>'},
+  {id:'t211-2',type:'mc',tag:'2.11 · Empirical rule',
+   q:'Same playlist, N(210, 30). About what percent of songs are <strong>longer than 270</strong> seconds?',
+   opts:['5%','2.5%','16%','0.15%'],correct:1,
+   why:'<p>270 = 210 + 2(30), which is 2 SDs above the mean. About 95% is within 2 SDs, leaving 5% in the two tails together. By symmetry, each tail has about 2.5%.</p>'},
+  {id:'t211-3',type:'mc',tag:'2.11 · z-scores',
+   q:'A song is 255 seconds long. With μ = 210 and σ = 30, which statement is correct?',
+   opts:['z = 45, so the song is 45 SDs above the mean.','z = 1.5, so the song is 1.5 standard deviations longer than the mean song length.','z = −1.5, so the song is shorter than average.','z = 0.85, so the song is at the 85th percentile.'],correct:1,
+   why:'<p class="work">z = (x − μ) ÷ σ = (255 − 210) ÷ 30 = 1.5</p><p>45 seconds is the distance from the mean before dividing by σ. A z-score is not a percentile.</p>'},
+  {id:'t211-4',type:'mc',tag:'2.11 · Finding area',
+   q:'Using N(210, 30), what proportion of songs are <strong>shorter than 190</strong> seconds?',
+   opts:['About 0.748','About 0.333','About 0.252','About 0.667'],correct:2,
+   why:'<p class="work">z = (190 − 210) ÷ 30 ≈ −0.67<br>P(X &lt; 190) = P(Z &lt; −0.67) ≈ 0.252</p><p>0.748 is the right-tail area, P(X &gt; 190). A z-score below 0 means the left-tail area must be less than 0.5.</p>'},
+  {id:'t211-5',type:'mc',tag:'2.11 · Finding area',
+   q:'Using N(210, 30), what proportion of songs are <strong>between 200 and 250</strong> seconds?',
+   opts:['About 0.909','About 0.369','About 0.539','About 0.461'],correct:2,
+   why:'<p class="work">z for 200: (200 − 210) ÷ 30 ≈ −0.33. z for 250: (250 − 210) ÷ 30 ≈ 1.33<br>P(200 &lt; X &lt; 250) = P(Z &lt; 1.33) − P(Z &lt; −0.33) ≈ 0.909 − 0.369 = 0.539</p><p>The first two choices are the separate left-tail areas. You need the difference between them.</p>'},
+  {id:'t211-6',type:'mc',tag:'2.11 · Finding a value',
+   q:'Using N(210, 30), how long is a song at the <strong>90th percentile</strong>?',
+   opts:['About 171.6 seconds','About 1.28 seconds','About 248.4 seconds','About 237.0 seconds'],correct:2,
+   why:'<p class="work">The z-score with area 0.90 to its left is about 1.28.<br>x = μ + zσ = 210 + 1.28(30) ≈ 248.4 seconds<br>(or invNorm(area = 0.90, μ = 210, σ = 30) ≈ 248.4)</p><p>171.6 is the 10th percentile. 1.28 is the z-score, not the song length.</p>'},
+  {id:'t211-7',type:'mc',tag:'2.11 · Communication',
+   q:'Which response would earn full credit for finding the proportion of songs longer than 190 seconds?',
+   opts:['normalcdf(190, 1000, 210, 30) = 0.7475','0.7475','X ~ N(210, 30). P(X &gt; 190): z = (190 − 210)/30 ≈ −0.67, so P(Z &gt; −0.67) ≈ 0.7475. About 74.8% of songs are longer than 190 seconds.','z = −0.67, so the answer is 0.2525.'],correct:2,
+   why:'<p>Full credit needs the distribution and parameters, the boundary and direction, and the right answer. Choice A is unlabeled calculator syntax, B is just a number, and D uses the wrong tail.</p>'},
+  {id:'t211-8',type:'written',testOnly:true,tag:'2.9 + 2.11 · Full problem (test only)',
+   q:'<p>Two songs are chosen at random and played back to back. Song lengths are independent and N(210, 30). Let T = total length. Find the mean and SD of T, then find P(T &gt; 480 seconds). Show your work the AP way.</p>',
+   model:'<p class="work">μ<sub>T</sub> = 210 + 210 = 420 seconds<br>σ<sub>T</sub> = √(30² + 30²) = √1800 ≈ 42.43 seconds (independent, so variances add)</p><p>A sum of independent normal random variables is normal, so T ~ N(420, 42.43).</p><p class="work">z = (480 − 420) ÷ 42.43 ≈ 1.41<br>P(T &gt; 480) = P(Z &gt; 1.41) ≈ 0.079</p><p>About 7.9% of randomly chosen pairs of songs would run longer than 480 seconds (8 minutes).</p>',
+   checklist:['Got μ = 420 and σ ≈ 42.43 (not 60) using variances','Said T is normal because it’s a sum of independent normals','Showed z ≈ 1.41 or labeled calculator inputs','Answered ≈ 0.079 in context']},
+  {id:'t211-9',type:'written',tag:'2.11 · Full problem',
+   q:'<p>Song lengths are N(210, 30) seconds. Find the proportion of songs that last between 3 and 4 minutes (180 to 240 seconds). Show your work the AP way, then explain how your answer connects to the empirical rule.</p>',
+   model:'<p class="work">Let X = length of a randomly chosen song. X ~ N(210, 30).<br>z for 180: (180 − 210) ÷ 30 = −1.00. z for 240: (240 − 210) ÷ 30 = 1.00<br>P(180 &lt; X &lt; 240) = P(−1.00 &lt; Z &lt; 1.00) ≈ 0.8413 − 0.1587 = 0.6827</p><p>About 68.3% of songs last between 3 and 4 minutes. This matches the empirical rule: 180 and 240 are each 1 SD from the mean, and about 68% of a normal distribution is within 1 SD of the mean.</p>',
+   checklist:['Named the distribution: N(210, 30)','Converted minutes to seconds and found both z-scores (−1 and 1)','Got about 0.683 by subtracting two areas (or with labeled calculator inputs)','Connected the answer to the 68% in the empirical rule']}
+ ]
+}
+];
+
+
+var QTOOLS=['Add probabilities from the distribution','Expected value (mean) of a random variable','Standard deviation of a random variable','Normal distribution calculation'];
+var TTOOLS=['Add probabilities from the distribution','Rules for combining random variables','Binomial distribution','Normal distribution'];
+
+var QUIZMIX={
+ key:'qmx', num:'Mix', short:'Quiz mixed review', title:'Quiz mixed review',
+ questions:[
+  {id:'qm-1',type:'mc',tag:'Pick the tool',
+   q:'A spinner lands on 0, 1, 2, or 5 points with known probabilities. You want the probability of scoring at least 2 points on one spin. Which idea do you need?',
+   opts:QTOOLS,correct:0,
+   why:'<p><strong>Topic 2.8.</strong> X is discrete with a known distribution, so add P(X = 2) + P(X = 5).</p>'},
+  {id:'qm-3',type:'mc',tag:'Pick the tool',
+   q:'Adult heights are approximately normal with a known mean and SD. You want the percent of adults taller than 6 feet. Which idea do you need?',
+   opts:QTOOLS,correct:3,
+   why:'<p><strong>Topic 2.11.</strong> Height is continuous and approximately normal, so find a right-tail area under the normal curve.</p>'},
+  {id:'qm-4',type:'mc',tag:'Pick the tool',
+   q:'A raffle has a few prizes of different sizes. You want to know how much a ticket pays back, on average, over many raffles. Which idea do you need?',
+   opts:QTOOLS,correct:1,
+   why:'<p><strong>Topic 2.9.</strong> The long-run average payout is the expected value, Σ x · P(x).</p>'},
+  {id:'qm-5',type:'mc',tag:'2.8 + 2.9',
+   q:'<p>X takes the values 0, 1, and 2 with P(X = 0) = 0.5 and P(X = 1) = 0.3. What is μ<sub>X</sub>?</p>',
+   opts:['1.0','0.2','0.7','0.9'],correct:2,
+   why:'<p class="work">P(X = 2) = 1 − (0.5 + 0.3) = 0.2<br>μ<sub>X</sub> = 0(0.5) + 1(0.3) + 2(0.2) = 0.7</p><p>1.0 averages the values without weights. 0.2 is the missing probability, not the mean.</p>'},
+  {id:'qm-8',type:'mc',tag:'2.11 · z-scores',
+   q:'Ava scored 85 on a test with mean 75 and SD 5. Ben scored 90 on a different test with mean 82 and SD 8. Who did better relative to their class?',
+   opts:['Ben, because 90 &gt; 85.','Ava, because her z-score (2.0) is higher than Ben’s (1.0).','Ben, because he was 8 points above the mean.','They did equally well.'],correct:1,
+   why:'<p class="work">Ava: z = (85 − 75) ÷ 5 = 2.0<br>Ben: z = (90 − 82) ÷ 8 = 1.0</p><p>z-scores put both scores on the same scale. Ava was 2 SDs above her class mean, and Ben was 1.</p>'},
+  {id:'qm-9',type:'mc',tag:'2.8 + 2.11',
+   q:'Which statement is true?',
+   opts:['For any random variable, P(X &lt; 3) = P(X ≤ 3).','For a normal random variable, P(X &lt; 3) = P(X ≤ 3), but for a discrete one they can differ.','For a discrete random variable, P(X = 3) is always 0.','For a normal random variable, P(X = 3) is the height of the curve at 3.'],correct:1,
+   why:'<p>A normal random variable is continuous, so any single value has probability 0 and the endpoint doesn’t matter. A discrete random variable can put real probability on 3, so P(X ≤ 3) can be larger than P(X &lt; 3).</p>'},
+  {id:'qm-10',type:'mc',tag:'2.9 · Expected value',
+   q:'A carnival game has an expected net gain of −$0.25 per play. What does this mean?',
+   opts:['Every player loses exactly 25 cents.','Over many, many plays, players lose about 25 cents per play on average.','There is a 25% chance of losing.','The game is fair.'],correct:1,
+   why:'<p>Expected value is a long-run average. Individual players may win or lose much more on one play. A fair game would have an expected net gain of $0.</p>'},
+  {id:'qm-12',type:'mc',tag:'Pick the tool',
+   q:'You know the probability distribution of the number of goals a team scores per game. You want to describe how much the number of goals typically varies from game to game. Which idea do you need?',
+   opts:QTOOLS,correct:2,
+   why:'<p><strong>Topic 2.9.</strong> The standard deviation of a random variable measures how much its values typically vary from the mean: σ = √(Σ (x − μ)² · P(x)).</p>'},
+  {id:'qm-13',type:'mc',tag:'2.8 + 2.9',
+   q:'<p>X takes the values 0, 1, and 2 with probabilities 0.5, 0.3, and 0.2, so μ<sub>X</sub> = 0.7. What is σ<sub>X</sub>?</p>',
+   opts:['About 0.78','0.61','About 0.82','1.1'],correct:0,
+   why:'<p class="work">σ²<sub>X</sub> = (0 − 0.7)²(0.5) + (1 − 0.7)²(0.3) + (2 − 0.7)²(0.2) = 0.245 + 0.027 + 0.338 = 0.61<br>σ<sub>X</sub> = √0.61 ≈ 0.78</p><p>0.61 is the variance, so take its square root. 0.82 is the SD of the values 0, 1, 2 ignoring their probabilities.</p>'},
+  {id:'qm-14',type:'mc',tag:'2.11 · Finding a value',
+   q:'Battery life is N(40, 5) hours. How long does a battery at the <strong>25th percentile</strong> last?',
+   opts:['About 43.4 hours','About 36.6 hours','About 38.75 hours','35 hours'],correct:1,
+   why:'<p class="work">The z-score with area 0.25 to its left is about −0.674.<br>x = μ + zσ = 40 + (−0.674)(5) ≈ 36.6 hours<br>(or invNorm(area = 0.25, μ = 40, σ = 5) ≈ 36.6)</p><p>43.4 is the 75th percentile. 35 is 1 SD below the mean, which is about the 16th percentile.</p>'}
+ ]
+};
+
+var TESTMIX={
+ key:'tmx', num:'Mix', short:'Test mixed review', title:'Test mixed review',
+ questions:[
+  {id:'tm-1',type:'mc',tag:'Pick the tool',
+   q:'80% of customers pay with a card. You want the probability that exactly 10 of the next 12 customers pay with a card. Which idea do you need?',
+   opts:TTOOLS,correct:2,
+   why:'<p><strong>Topic 2.10.</strong> Fixed n = 12, success/failure, same p = 0.8, independent customers: binomial.</p>'},
+  {id:'tm-2',type:'mc',tag:'Pick the tool',
+   q:'Apple weights are approximately normal with a known mean and SD. You want the percent of apples heavier than 180 g. Which idea do you need?',
+   opts:TTOOLS,correct:3,
+   why:'<p><strong>Topic 2.11.</strong> Weight is continuous and approximately normal, so find a right-tail area.</p>'},
+  {id:'tm-3',type:'mc',tag:'Pick the tool',
+   q:'You want the mean and SD of the total weight of 4 apples, chosen at random, plus the box they’re packed in. Which idea do you need?',
+   opts:TTOOLS,correct:1,
+   why:'<p><strong>Topic 2.9.</strong> Add the means, and (with independence) add the variances.</p>'},
+  {id:'tm-4',type:'mc',tag:'Pick the tool',
+   q:'A prize wheel pays $1, $2, $5, or $10, and the probabilities are printed on the wheel. You want the probability of winning at least $5. Which idea do you need?',
+   opts:TTOOLS,correct:0,
+   why:'<p><strong>Topic 2.8.</strong> Add P($5) + P($10) from the given distribution.</p>'},
+  {id:'tm-5',type:'mc',tag:'2.10',
+   q:'80% of customers pay with a card, independently. What is the probability that <strong>exactly 10</strong> of the next 12 pay with a card?',
+   opts:['About 0.283','About 0.107','About 0.558','About 0.800'],correct:0,
+   why:'<p class="work">X is binomial, n = 12, p = 0.8.<br>P(X = 10) = (12 choose 10)(0.8)¹⁰(0.2)² = 66(0.1074)(0.04) ≈ 0.283</p><p>0.107 is just 0.8¹⁰, which forgets the 66 arrangements and the (0.2)² factor.</p>'},
+  {id:'tm-6',type:'mc',tag:'2.10',
+   q:'Same setting, n = 12 and p = 0.8. What are the mean and SD of the number who pay with a card?',
+   opts:['Mean 9.6, SD ≈ 1.39','Mean 9.6, SD ≈ 1.92','Mean 10, SD ≈ 1.39','Mean 9.6, SD ≈ 3.10'],correct:0,
+   why:'<p class="work">μ = np = 12(0.8) = 9.6<br>σ = √(12 · 0.8 · 0.2) = √1.92 ≈ 1.39</p><p>1.92 is the variance. 3.10 is √(np), which leaves out (1 − p).</p>'},
+  {id:'tm-7',type:'mc',tag:'2.8 + 2.10',
+   q:'X is binomial with n = 10 and p = 0.5. What is P(X &lt; 4)?',
+   opts:['About 0.377','About 0.205','About 0.172','About 0.828'],correct:2,
+   why:'<p class="work">P(X &lt; 4) = P(X ≤ 3) = binomcdf(n = 10, p = 0.5, k = 3) = 176/1024 ≈ 0.172</p><p>X is discrete, so “less than 4” stops at 3. 0.377 is P(X ≤ 4), and 0.205 is P(X = 4).</p>'},
+  {id:'tm-8',type:'mc',tag:'2.9',
+   q:'Apple weights are N(150 g, 20 g), independent. What is the SD of the total weight of 4 randomly chosen apples?',
+   opts:['80 g','40 g','20 g','1,600 g'],correct:1,
+   why:'<p class="work">σ = √(20² + 20² + 20² + 20²) = √1600 = 40 g</p><p>80 g treats it as 4 times one apple (4X). 1,600 is the variance.</p>'},
+  {id:'tm-9',type:'mc',tag:'2.9 + 2.11',
+   q:'Using the total of 4 apples (mean 600 g, SD 40 g, normal), what is the probability the total is more than 650 g?',
+   opts:['About 0.894','About 0.106','About 0.401','About 0.006'],correct:1,
+   why:'<p class="work">z = (650 − 600) ÷ 40 = 1.25<br>P(Z &gt; 1.25) ≈ 0.106</p><p>0.894 is the left tail. 0.006 is what you get if you wrongly use SD 20.</p>'},
+  {id:'tm-10',type:'mc',tag:'2.10 · Setting',
+   q:'Why is “Guess on quiz questions until you get one right; X = the number of questions answered” <strong>not</strong> binomial?',
+   opts:['The trials aren’t independent.','There is no fixed number of trials.','The probability of success changes.','There are more than two outcomes.'],correct:1,
+   why:'<p>A binomial random variable counts successes in a fixed number n of trials. Here the number of trials is what you’re counting, and it isn’t fixed ahead of time.</p>'},
+  {id:'tm-11',type:'mc',tag:'2.9 + 2.10',
+   q:'On a 10-question quiz with 4 choices each, a student guesses on every question. Each right answer is worth +4 points and each wrong answer is −1, so the score is S = 5X − 10, where X is the number right. X is binomial with μ = 2.5 and σ ≈ 1.37. What are the mean and SD of S?',
+   opts:['Mean 2.5, SD ≈ 6.85','Mean 0, SD ≈ 6.85','Mean 2.5, SD ≈ 1.37','Mean 12.5, SD ≈ 6.85'],correct:0,
+   why:'<p class="work">μ<sub>S</sub> = 5(2.5) − 10 = 2.5<br>σ<sub>S</sub> = |5| · 1.37 ≈ 6.85</p><p>Subtracting 10 shifts the mean but not the SD. 12.5 forgets to subtract 10.</p>'},
+  {id:'tm-12',type:'mc',tag:'2.11 · Interpretation',
+   q:'For song lengths N(210, 30), P(X &gt; 240) ≈ 0.159. Which interpretation is correct?',
+   opts:['A song has a 15.9% chance of being exactly 240 seconds.','About 15.9% of songs on the playlist are longer than 240 seconds.','15.9% of songs are within 1 SD of the mean.','The 15.9th percentile is 240 seconds.'],correct:1,
+   why:'<p>A right-tail area is the proportion of values above the boundary. P(X = 240) is 0 for a continuous variable, and 240 is the 84th percentile, not the 15.9th.</p>'},
+  {id:'tm-13',type:'mc',tag:'2.10 + 2.8',
+   q:'A random variable X has n = 8 trials, p = 0.25, and is binomial. Which statement is true?',
+   opts:['X can take any value from 0 to 8, including decimals.','X can take the whole numbers 0 through 8, and its probabilities add to 1.','The most likely value is 8.','P(X = 2) = 0.25.'],correct:1,
+   why:'<p>A binomial random variable counts successes, so it takes whole-number values 0 through n, and like any valid distribution its probabilities sum to 1. With p = 0.25, values near np = 2 are most likely. P(X = 2) = (8 choose 2)(0.25)²(0.75)⁶ ≈ 0.311, not 0.25.</p>'},
+  {id:'tm-14',type:'mc',tag:'2.9 + 2.11',
+   q:'Daily high temperatures in °C are N(20, 4). Converting to °F uses F = 32 + 1.8C. What is the distribution of F?',
+   opts:['N(68, 7.2)','N(68, 39.2)','N(36, 7.2)','Not normal, because the units changed'],correct:0,
+   why:'<p class="work">μ<sub>F</sub> = 32 + 1.8(20) = 68. σ<sub>F</sub> = 1.8(4) = 7.2</p><p>A linear transformation keeps the normal shape. The added 32 shifts the center but not the spread, so 39.2 is wrong. 36 forgets to add 32.</p>'},
+  {id:'tm-15',type:'mc',tag:'Pick the tool',
+   q:'You know the mean and SD of the time a student spends on math homework and, separately, on English homework. The two times are independent. You want the mean and SD of the total homework time. Which idea do you need?',
+   opts:TTOOLS,correct:1,
+   why:'<p><strong>Topic 2.9.</strong> The total is T = M + E, a sum of independent random variables: μ<sub>T</sub> = μ<sub>M</sub> + μ<sub>E</sub>, and σ<sub>T</sub> = √(σ²<sub>M</sub> + σ²<sub>E</sub>).</p>'},
+  {id:'tm-16',type:'mc',tag:'2.9 + 2.11',
+   q:'Homework time X ~ N(12, 2) minutes and reading time Y ~ N(8, 1.5) minutes are independent. What is P(X + Y &gt; 25)?',
+   opts:['About 0.023','About 0.159','About 0.977','About 0.001'],correct:0,
+   why:'<p class="work">μ = 12 + 8 = 20. σ = √(2² + 1.5²) = √6.25 = 2.5<br>X + Y ~ N(20, 2.5), so z = (25 − 20) ÷ 2.5 = 2.00<br>P(Z &gt; 2.00) ≈ 0.023</p><p>If you added SDs (3.5), you’d get z ≈ 1.43 and the wrong area. 0.977 is the left tail.</p>'},
+  {id:'tm-17',type:'mc',tag:'2.9 · Combining',
+   q:'One customer’s taco order X has σ<sub>X</sub> ≈ 0.94. Two different customers order independently. What is the SD of their combined order, X₁ + X₂?',
+   opts:['About 1.88','About 1.33','About 0.94','About 0.89'],correct:1,
+   why:'<p class="work">σ = √(0.94² + 0.94²) = √2 · 0.94 ≈ 1.33</p><p>1.88 adds the two SDs. For independent random variables, add the variances, then take the square root. 0.94 forgets that the second customer adds more variability.</p>'}
+ ]
+};
+
+var PATHS={
+ quiz:{key:'quiz', label:'Quiz', title:'Quiz prep', topics:['t28','t29','t211'], mix:QUIZMIX, range:'Topics 2.8, 2.9, and 2.11',
+   lede:'Random variables, their means and standard deviations, and the normal distribution. Not on the quiz: transforming and combining random variables from 2.9, and the binomial distribution (2.10).'},
+ test:{key:'test', label:'Test', title:'Test prep', topics:['t28','t29','t210','t211'], mix:TESTMIX, range:'Topics 2.8–2.11',
+   lede:'Everything from the quiz plus transforming and combining random variables (2.9) and the binomial distribution (2.10), with mixed questions that ask you to choose the right model.'}
+};
+
+var TBYKEY={}; TOPICS.forEach(function(t){ TBYKEY[t.key]=t; });
+var QINDEX={};
+TOPICS.forEach(function(t){ t.questions.forEach(function(q){ QINDEX[q.id]={q:q,set:t}; }); });
+[QUIZMIX,TESTMIX].forEach(function(m){ m.questions.forEach(function(q){ QINDEX[q.id]={q:q,set:m}; }); });
+function qList(set,path){ return set.questions.filter(function(q){ return !(path==='quiz'&&q.testOnly); }); }
+
+/* ---------- helpers ---------- */
+var LETTERS='ABCD';
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function f3(x){ return x.toFixed(3); }
+function f4(x){ return x.toFixed(4); }
+function stats(set,path){
+  var qs=qList(set,path),done=0,correct=0,total=qs.length;
+  qs.forEach(function(q){
+    var r=progress[q.id]; if(!r) return;
+    if(q.type==='mc' && typeof r.choice==='number'){ done++; if(r.correct) correct++; }
+    if(q.type==='written' && r.self){ done++; if(r.self==='got') correct++; }
+  });
+  return {done:done,correct:correct,total:total};
+}
+function pathStats(p){
+  var sets=p.topics.map(function(k){ return TBYKEY[k]; }).concat([p.mix]), d=0,c=0,t=0;
+  sets.forEach(function(s){ var st=stats(s,p.key); d+=st.done; c+=st.correct; t+=st.total; });
+  return {done:d,correct:c,total:t};
+}
+/* normal cdf (Abramowitz–Stegun 7.1.26) and inverse by bisection */
+function erf(x){ var s=x<0?-1:1; x=Math.abs(x); var t=1/(1+0.3275911*x); var y=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x); return s*y; }
+function Phi(z){ return 0.5*(1+erf(z/Math.SQRT2)); }
+function invPhi(p){ var lo=-8,hi=8; for(var i=0;i<80;i++){ var m=(lo+hi)/2; if(Phi(m)<p) lo=m; else hi=m; } return (lo+hi)/2; }
+function choose(n,k){ var r=1; for(var i=1;i<=k;i++){ r=r*(n-k+i)/i; } return r; }
+function binPmf(n,p,k){ return choose(n,k)*Math.pow(p,k)*Math.pow(1-p,n-k); }
+var OPS=[['eq','='],['lt','<'],['le','≤'],['gt','>'],['ge','≥']];
+function opTest(op,x,k){ return op==='eq'?x===k:op==='lt'?x<k:op==='le'?x<=k:op==='gt'?x>k:x>=k; }
+function opSym(op){ for(var i=0;i<OPS.length;i++) if(OPS[i][0]===op) return OPS[i][1]; return '='; }
+function opOptions(sel){ return OPS.map(function(o){ return '<option value="'+o[0]+'"'+(o[0]===sel?' selected':'')+'>'+esc(o[1])+'</option>'; }).join(''); }
+
+/* ---------- question rendering ---------- */
+function qHTML(q,n){
+  var rec=progress[q.id], body='';
+  var tag=q.tag?'<span class="code">'+q.tag+'</span>':'';
+  if(q.type==='mc'){
+    var answered=!!rec && typeof rec.choice==='number';
+    body+='<div class="opts" role="group" aria-label="Answer choices">';
+    q.opts.forEach(function(o,i){
+      var cls='opt', mark='';
+      if(answered){
+        if(i===q.correct){ cls+=' right'; mark='<span class="mark">✓ Correct answer</span>'; }
+        else if(i===rec.choice){ cls+=' wrong'; mark='<span class="mark">✗ Your answer</span>'; }
+      }
+      body+='<button class="'+cls+'" data-act="pick" data-qid="'+q.id+'" data-i="'+i+'"'+(answered?' disabled':'')+'><span class="letter">'+LETTERS[i]+'</span><span class="otext">'+o+'</span>'+mark+'</button>';
+    });
+    body+='</div>';
+    if(answered){
+      body+='<div class="fb '+(rec.correct?'ok':'no')+'" tabindex="-1" role="status"><p class="verdict">'+(rec.correct?'✓ Correct':'✗ Not quite')+'</p>'+q.why+'<button class="link" data-act="retry" data-qid="'+q.id+'">Try this one again</button></div>';
+    }
+  } else {
+    var revealed=!!rec && rec.revealed;
+    body+='<label class="wlabel" for="ta-'+q.id+'">Write your answer first, with work shown and a conclusion in context.</label>';
+    body+='<textarea id="ta-'+q.id+'" rows="5"'+(revealed?' disabled':'')+'>'+esc((rec&&rec.text)||'')+'</textarea>';
+    if(!revealed){
+      body+='<button class="btn" data-act="reveal" data-qid="'+q.id+'">Show model answer</button>';
+    } else {
+      body+='<div class="fb model" tabindex="-1"><p class="verdict">Model answer</p>'+q.model+'<p><strong>Check your answer. Did you include…</strong></p>';
+      q.checklist.forEach(function(c){ body+='<label class="chk"><input type="checkbox"> <span>'+c+'</span></label>'; });
+      if(rec.self){
+        body+='<p style="margin-top:10px">You marked this: <strong>'+(rec.self==='got'?'Got it':'Need to revisit')+'</strong></p>';
+      } else {
+        body+='<div class="btnrow"><button class="btn" data-act="self" data-v="got" data-qid="'+q.id+'">I got it</button><button class="btn ghost" data-act="self" data-v="revisit" data-qid="'+q.id+'">I need to revisit this</button></div>';
+      }
+      body+='<button class="link" data-act="retry" data-qid="'+q.id+'">Start this one over</button></div>';
+    }
+  }
+  return '<article class="q" id="q-'+q.id+'" tabindex="-1"><div class="q-head"><span class="qnum">Question '+n+'</span>'+tag+'</div><div class="qtext">'+q.q+'</div>'+body+'</article>';
+}
+
+/* ---------- shared bar chart ---------- */
+function barChart(xs,ps,inFn,opts){
+  opts=opts||{};
+  var L=48,R=500,T=14,B=210,W=R-L,H=B-T,n=xs.length;
+  var maxP=Math.max.apply(null,ps); var top=Math.max(0.1,Math.ceil(maxP*10)/10);
+  var slot=W/n, bw=Math.min(70,slot*0.8), s='';
+  s+='<line x1="'+L+'" y1="'+B+'" x2="'+R+'" y2="'+B+'" class="ax"/><line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+B+'" class="ax"/>';
+  for(var t=0;t<=4;t++){ var v=top*t/4, y=B-v/top*H; s+='<line x1="'+(L-4)+'" y1="'+y+'" x2="'+L+'" y2="'+y+'" class="ax"/><text x="'+(L-7)+'" y="'+(y+4)+'" text-anchor="end" class="tk">'+(+v.toFixed(3))+'</text>'; }
+  var every=n>16?5:1;
+  xs.forEach(function(x,i){
+    var cx=L+slot*(i+0.5), h=ps[i]/top*H, on=inFn(x);
+    s+='<rect x="'+(cx-bw/2)+'" y="'+(B-h)+'" width="'+bw+'" height="'+Math.max(h,0)+'" class="'+(on?'bar-in':'bar-out')+'"/>';
+    if(opts.labels && n<=8) s+='<text x="'+cx+'" y="'+(B-h-6)+'" text-anchor="middle" class="lg">'+ps[i].toFixed(2)+'</text>';
+    if(i%every===0||i===n-1) s+='<text x="'+cx+'" y="'+(B+17)+'" text-anchor="middle" class="tk">'+(opts.fmt?opts.fmt(x):x)+'</text>';
+  });
+  if(typeof opts.mean==='number'){
+    var mx=L+slot*(opts.meanIndex+0.5);
+    s+='<path d="M'+mx+' '+(B+22)+' l-7 12 h14 z" fill="var(--blue-ink)"/><text x="'+mx+'" y="'+(B+48)+'" text-anchor="middle" class="lg">mean = '+opts.meanLabel+'</text>';
+  }
+  if(opts.xlabel) s+='<text x="'+((L+R)/2)+'" y="'+(B+(typeof opts.mean==='number'?64:36))+'" text-anchor="middle" class="tk">'+opts.xlabel+'</text>';
+  return s;
+}
+
+/* ---------- widgets ---------- */
+function widgetDist(root){
+  var xs=[1,2,3,4], ps=[0.30,0.40,0.20,0.10], op='ge', k=3;
+  root.innerHTML='<div class="w-head"><h3>Pick an event, see which bars count</h3></div>'+
+   '<p>X = number of tacos ordered by a randomly selected customer.</p>'+
+   '<div class="ctrl"><label for="ds-op">Find P(X</label><select id="ds-op" aria-label="Comparison">'+opOptions(op)+'</select><select id="ds-k" aria-label="Value">'+xs.map(function(x){ return '<option'+(x===k?' selected':'')+'>'+x+'</option>'; }).join('')+'</select><span style="font-weight:700">)</span></div>'+
+   '<svg id="ds-svg" viewBox="0 0 520 250" role="img"></svg><div class="w-out" id="ds-out" aria-live="polite"></div>';
+  var svg=root.querySelector('#ds-svg'), out=root.querySelector('#ds-out');
+  function draw(){
+    var inc=[],sum=0;
+    xs.forEach(function(x,i){ if(opTest(op,x,k)){ inc.push(i); sum+=ps[i]; } });
+    svg.innerHTML=barChart(xs,ps,function(x){ return opTest(op,x,k); },{labels:true,xlabel:'Number of tacos, x'});
+    svg.setAttribute('aria-label','Probability histogram of the taco distribution with '+inc.length+' bars highlighted');
+    var terms=inc.map(function(i){ return 'P(X = '+xs[i]+')'; }).join(' + ');
+    var vals=inc.map(function(i){ return ps[i].toFixed(2); }).join(' + ');
+    var h='<div class="calc">P(X '+esc(opSym(op))+' '+k+') = '+(inc.length?terms+' = '+vals+' = '+(+sum.toFixed(2)):'0')+'</div>';
+    if(!inc.length) h+='<div>No value of X fits this event, so the probability is 0.</div>';
+    else if(op==='lt'||op==='gt') h+='<div>“'+(op==='lt'?'Less':'More')+' than '+k+'” leaves out X = '+k+'. Switch to '+(op==='lt'?'≤':'≥')+' to see the difference that one bar makes.</div>';
+    else if(op==='le'||op==='ge') h+='<div>“'+(op==='le'?'At most':'At least')+' '+k+'” includes X = '+k+'.</div>';
+    out.innerHTML=h;
+  }
+  root.querySelector('#ds-op').addEventListener('change',function(e){ op=e.target.value; draw(); });
+  root.querySelector('#ds-k').addEventListener('change',function(e){ k=+e.target.value; draw(); });
+  draw();
+}
+
+function widgetTransform(root){
+  var xs=[1,2,3,4], ps=[0.30,0.40,0.20,0.10], muX=2.1, sdX=Math.sqrt(0.89), a=1, b=3;
+  var As=[-5,-2,0,1,2,5,10], Bs=[-1,0.5,1,2,3];
+  function opt(list,sel){ return list.map(function(v){ return '<option value="'+v+'"'+(v===sel?' selected':'')+'>'+v+'</option>'; }).join(''); }
+  root.innerHTML='<div class="w-head"><h3>Transform it: Y = a + bX</h3><button class="btn ghost" id="tf-preset" style="padding:6px 12px;font-size:.88rem">Taco bill: Y = 1 + 3X</button></div>'+
+   '<div class="ctrl"><label for="tf-a">a (add)</label><select id="tf-a">'+opt(As,a)+'</select><label for="tf-b">b (multiply)</label><select id="tf-b">'+opt(Bs,b)+'</select></div>'+
+   '<svg id="tf-svg" viewBox="0 0 520 290" role="img"></svg><div class="w-out" id="tf-out" aria-live="polite"></div>';
+  var svg=root.querySelector('#tf-svg'), out=root.querySelector('#tf-out');
+  function fmt(v){ return +v.toFixed(2); }
+  function sg(v){ return String(v).replace('-','−'); }
+  function draw(){
+    var ys=xs.map(function(x){ return a+b*x; });
+    var pairs=b===0?[{y:a,p:1}]:ys.map(function(y,i){ return {y:y,p:ps[i]}; }).sort(function(u,v){ return u.y-v.y; });
+    var muY=a+b*muX, sdY=Math.abs(b)*sdX;
+    // place mean marker proportionally between sorted y values
+    var yv=pairs.map(function(o){ return o.y; }), idx;
+    if(yv[0]===yv[yv.length-1]) idx=0; else idx=(muY-yv[0])/(yv[yv.length-1]-yv[0])*(yv.length-1);
+    svg.innerHTML=barChart(yv,pairs.map(function(o){ return o.p; }),function(){ return true; },{labels:true,fmt:fmt,mean:muY,meanIndex:idx,meanLabel:fmt(muY),xlabel:'Values of Y'});
+    svg.setAttribute('aria-label','Probability histogram of Y = '+a+' + '+b+'X');
+    var h='<div class="calc">μ<sub>Y</sub> = a + bμ<sub>X</sub> = '+sg(a)+' + '+(b<0?'('+sg(b)+')':b)+'('+muX+') = '+sg(fmt(muY))+'</div>'+
+      '<div class="calc">σ<sub>Y</sub> = |b| · σ<sub>X</sub> = '+Math.abs(b)+' × '+f3(sdX)+' ≈ '+f3(sdY)+'</div>';
+    if(b===0) h+='<div>With b = 0, every Y equals '+a+', so there is no spread at all.</div>';
+    else if(b<0) h+='<div>A negative b flips the distribution left to right. The SD uses |b|, because spread can’t be negative.</div>';
+    else h+='<div>Notice that a moves the bars without changing how spread out they are. Only b changes the spread.</div>';
+    if(b===3&&a===1) h+='<div>In context: the mean bill is $7.30, and bills typically vary from that by about $2.83.</div>';
+    out.innerHTML=h;
+  }
+  root.querySelector('#tf-a').addEventListener('change',function(e){ a=+e.target.value; draw(); });
+  root.querySelector('#tf-b').addEventListener('change',function(e){ b=+e.target.value; draw(); });
+  root.querySelector('#tf-preset').addEventListener('click',function(){ a=1; b=3; root.querySelector('#tf-a').value='1'; root.querySelector('#tf-b').value='3'; draw(); });
+  draw();
+}
+
+function widgetCombine(root){
+  var mode='sum', indep=true;
+  var X={name:'getting ready',mu:30,sd:3}, Y={name:'commute',mu:20,sd:4};
+  root.innerHTML='<div class="w-head"><h3>Combine two random variables</h3><div class="seg" role="group" aria-label="Sum or difference"><button data-m="sum" aria-pressed="true">X + Y</button><button data-m="diff" aria-pressed="false">X − Y</button></div></div>'+
+   '<p>X = Maya’s time getting ready (μ = 30 min, σ = 3 min). Y = her commute (μ = 20 min, σ = 4 min).</p>'+
+   '<label class="chk"><input type="checkbox" id="cb-ind" checked> <span>X and Y are independent</span></label>'+
+   '<div class="w-out" id="cb-out" aria-live="polite"></div>';
+  var out=root.querySelector('#cb-out');
+  function draw(){
+    var s=mode==='sum'?'+':'−', mu=mode==='sum'?X.mu+Y.mu:X.mu-Y.mu;
+    var h='<div class="calc">μ<sub>X'+s+'Y</sub> = μ<sub>X</sub> '+s+' μ<sub>Y</sub> = 30 '+s+' 20 = '+mu+' minutes</div>';
+    h+='<div style="margin-bottom:6px">'+(mode==='sum'?'On average, the whole morning takes 50 minutes.':'On average, getting ready takes 10 minutes longer than the commute.')+' The mean rule works whether or not X and Y are independent.</div>';
+    if(indep){
+      h+='<div class="calc">σ²<sub>X'+s+'Y</sub> = σ²<sub>X</sub> + σ²<sub>Y</sub> = 3² + 4² = 9 + 16 = 25</div><div class="calc">σ<sub>X'+s+'Y</sub> = √25 = 5 minutes</div>';
+      h+='<div>'+(mode==='diff'?'The variances still add, even though we subtracted. ':'')+'Common wrong answers: adding the SDs (3 + 4 = 7) or subtracting them (4 − 3 = 1).</div>';
+    } else {
+      h+='<div><strong>The SD can’t be found from these numbers.</strong> If X and Y are related (say, Maya rushes getting ready when traffic is bad), the variance rule doesn’t apply. That’s why you must state independence when you use it.</div>';
+    }
+    out.innerHTML=h;
+  }
+  root.querySelectorAll('[data-m]').forEach(function(btn){ btn.addEventListener('click',function(){ mode=btn.dataset.m; root.querySelectorAll('[data-m]').forEach(function(x){ x.setAttribute('aria-pressed',x===btn?'true':'false'); }); draw(); }); });
+  root.querySelector('#cb-ind').addEventListener('change',function(e){ indep=e.target.checked; draw(); });
+  draw();
+}
+
+function widgetBinom(root){
+  var n=5,p=0.7,op='ge',k=4;
+  root.innerHTML='<div class="w-head"><h3>Binomial explorer</h3></div>'+
+   '<div class="ctrl"><label for="bn-n">n</label><input type="range" id="bn-n" min="1" max="30" step="1" value="'+n+'"><span class="val" id="bn-nv"></span>'+
+   '<label for="bn-p">p</label><input type="range" id="bn-p" min="0.05" max="0.95" step="0.05" value="'+p+'"><span class="val" id="bn-pv"></span></div>'+
+   '<div class="ctrl"><label for="bn-op">Find P(X</label><select id="bn-op" aria-label="Comparison">'+opOptions(op)+'</select><select id="bn-k" aria-label="Value"></select><span style="font-weight:700">)</span></div>'+
+   '<svg id="bn-svg" viewBox="0 0 520 250" role="img"></svg><div class="w-out" id="bn-out" aria-live="polite"></div>';
+  var svg=root.querySelector('#bn-svg'), out=root.querySelector('#bn-out'), kSel=root.querySelector('#bn-k');
+  function fillK(){ if(k>n) k=n; var h=''; for(var i=0;i<=n;i++) h+='<option'+(i===k?' selected':'')+'>'+i+'</option>'; kSel.innerHTML=h; }
+  function cmd(){
+    var P='n = '+n+', p = '+p;
+    if(op==='eq') return 'binompdf('+P+', k = '+k+')';
+    if(op==='le') return 'binomcdf('+P+', k = '+k+')';
+    if(op==='lt') return k===0?'0 (no values below 0)':'binomcdf('+P+', k = '+(k-1)+')';
+    if(op==='gt') return '1 − binomcdf('+P+', k = '+k+')';
+    return k===0?'1 (every value is at least 0)':'1 − binomcdf('+P+', k = '+(k-1)+')';
+  }
+  function draw(){
+    root.querySelector('#bn-nv').textContent=n; root.querySelector('#bn-pv').textContent=p.toFixed(2);
+    var xs=[],ps=[],sum=0,inc=[];
+    for(var x=0;x<=n;x++){ xs.push(x); var v=binPmf(n,p,x); ps.push(v); if(opTest(op,x,k)){ sum+=v; inc.push(x); } }
+    svg.innerHTML=barChart(xs,ps,function(x){ return opTest(op,x,k); },{xlabel:'Number of successes, x'});
+    svg.setAttribute('aria-label','Binomial distribution with n = '+n+' and p = '+p.toFixed(2)+', '+inc.length+' bars highlighted');
+    var mu=n*p, sd=Math.sqrt(n*p*(1-p));
+    var h='<div class="calc">P(X '+esc(opSym(op))+' '+k+') ≈ '+f4(sum)+'</div>';
+    if(inc.length>0&&inc.length<=3) h+='<div>'+inc.map(function(x){ return 'P(X = '+x+') = ('+n+' choose '+x+')('+p+')<sup>'+x+'</sup>('+(+(1-p).toFixed(2))+')<sup>'+(n-x)+'</sup> ≈ '+f4(binPmf(n,p,x)); }).join('<br>')+'</div>';
+    h+='<div>Calculator: '+cmd()+'</div>';
+    h+='<div class="calc" style="margin-top:6px">μ = np = '+(+mu.toFixed(3))+' · σ = √(np(1 − p)) ≈ '+f3(sd)+'</div>';
+    h+='<div>'+(Math.abs(p-0.5)<0.01?'With p = 0.5 the distribution is symmetric.':p<0.5?'With p below 0.5 the distribution is skewed right, less so as n grows.':'With p above 0.5 the distribution is skewed left, less so as n grows.')+'</div>';
+    out.innerHTML=h;
+  }
+  root.querySelector('#bn-n').addEventListener('input',function(e){ n=+e.target.value; fillK(); draw(); });
+  root.querySelector('#bn-p').addEventListener('input',function(e){ p=Math.round(+e.target.value*100)/100; draw(); });
+  root.querySelector('#bn-op').addEventListener('change',function(e){ op=e.target.value; draw(); });
+  kSel.addEventListener('change',function(e){ k=+e.target.value; draw(); });
+  fillK(); draw();
+}
+
+function widgetNormal(root){
+  var mu=210, sd=30, mode='right', a=240, b=270, area=0.90, emp=false;
+  root.innerHTML='<div class="w-head"><h3>Normal curve calculator</h3><div class="seg" role="group" aria-label="What to find"><button data-m="left" aria-pressed="false">Area left</button><button data-m="right" aria-pressed="true">Area right</button><button data-m="between" aria-pressed="false">Area between</button><button data-m="inv" aria-pressed="false">Value from percentile</button></div></div>'+
+   '<div class="ctrl"><label for="nm-mu">μ</label><input type="number" id="nm-mu" value="'+mu+'" step="any"><label for="nm-sd">σ</label><input type="number" id="nm-sd" value="'+sd+'" step="any" min="0"></div>'+
+   '<div class="ctrl" id="nm-bounds"></div>'+
+   '<label class="chk"><input type="checkbox" id="nm-emp"> <span>Show the empirical rule (68–95–99.7)</span></label>'+
+   '<svg id="nm-svg" viewBox="0 0 520 250" role="img"></svg><div class="w-out" id="nm-out" aria-live="polite"></div>';
+  var svg=root.querySelector('#nm-svg'), out=root.querySelector('#nm-out'), bounds=root.querySelector('#nm-bounds');
+  function boundsHTML(){
+    if(mode==='inv') return '<label for="nm-area">Area to the left (percentile as a decimal)</label><input type="number" id="nm-area" value="'+area+'" step="0.01" min="0.001" max="0.999">';
+    if(mode==='between') return '<label for="nm-a">From x =</label><input type="number" id="nm-a" value="'+a+'" step="any"><label for="nm-b">to x =</label><input type="number" id="nm-b" value="'+b+'" step="any">';
+    return '<label for="nm-a">'+(mode==='left'?'Less than':'Greater than')+' x =</label><input type="number" id="nm-a" value="'+a+'" step="any">';
+  }
+  function bindBounds(){
+    bounds.innerHTML=boundsHTML();
+    var ia=bounds.querySelector('#nm-a'), ib=bounds.querySelector('#nm-b'), ar=bounds.querySelector('#nm-area');
+    if(ia) ia.addEventListener('input',function(){ a=parseFloat(ia.value); draw(); });
+    if(ib) ib.addEventListener('input',function(){ b=parseFloat(ib.value); draw(); });
+    if(ar) ar.addEventListener('input',function(){ area=parseFloat(ar.value); draw(); });
+  }
+  function r(x,d){ return +x.toFixed(d); }
+  function draw(){
+    if(!(sd>0)||!isFinite(mu)){ svg.innerHTML=''; out.innerHTML='Enter a mean and a standard deviation greater than 0.'; return; }
+    var L=20,R=500,T=16,B=196,lo=mu-4*sd,hi=mu+4*sd;
+    function X(x){ return L+(x-lo)/(hi-lo)*(R-L); }
+    var peak=1/(sd*Math.sqrt(2*Math.PI));
+    function Y(x){ var z=(x-mu)/sd; return B-(Math.exp(-z*z/2)/(sd*Math.sqrt(2*Math.PI)))/peak*(B-T); }
+    function pathBetween(x1,x2){ x1=Math.max(lo,x1); x2=Math.min(hi,x2); if(x2<=x1) return ''; var d='M'+X(x1)+' '+B; for(var i=0;i<=120;i++){ var x=x1+(x2-x1)*i/120; d+=' L'+X(x).toFixed(1)+' '+Y(x).toFixed(1); } return '<path d="'+d+' L'+X(x2)+' '+B+' Z" class="shade"/>'; }
+    var s='', valid=true, msg='', h='';
+    var x1,x2,P,za,zb;
+    if(mode==='inv'){
+      if(!(area>0&&area<1)){ valid=false; msg='Enter an area between 0 and 1, such as 0.90 for the 90th percentile.'; }
+      else { za=invPhi(area); x2=mu+za*sd; x1=-Infinity; }
+    } else if(mode==='between'){
+      if(!isFinite(a)||!isFinite(b)||a>=b){ valid=false; msg='Enter two values with the first one smaller.'; }
+      else { x1=a; x2=b; za=(a-mu)/sd; zb=(b-mu)/sd; P=Phi(zb)-Phi(za); }
+    } else {
+      if(!isFinite(a)){ valid=false; msg='Enter a value for x.'; }
+      else { za=(a-mu)/sd; if(mode==='left'){ x1=-Infinity; x2=a; P=Phi(za); } else { x1=a; x2=Infinity; P=1-Phi(za); } }
+    }
+    if(valid) s+=pathBetween(x1,x2);
+    var d='M'+X(lo)+' '+Y(lo).toFixed(1); for(var i=1;i<=200;i++){ var x=lo+(hi-lo)*i/200; d+=' L'+X(x).toFixed(1)+' '+Y(x).toFixed(1); }
+    s+='<path d="'+d+'" class="curve"/><line x1="'+L+'" y1="'+B+'" x2="'+R+'" y2="'+B+'" class="ax"/>';
+    for(var kk=-3;kk<=3;kk++){ var xv=mu+kk*sd; s+='<line x1="'+X(xv)+'" y1="'+B+'" x2="'+X(xv)+'" y2="'+(B+5)+'" class="ax"/><text x="'+X(xv)+'" y="'+(B+19)+'" text-anchor="middle" class="tk">'+r(xv,2)+'</text><text x="'+X(xv)+'" y="'+(B+34)+'" text-anchor="middle" class="tk">z = '+kk+'</text>'; }
+    if(emp){
+      for(var j=-3;j<=3;j++){ if(j===0) continue; s+='<line x1="'+X(mu+j*sd)+'" y1="'+T+'" x2="'+X(mu+j*sd)+'" y2="'+B+'" class="emp"/>'; }
+      s+='<line x1="'+X(mu)+'" y1="'+T+'" x2="'+X(mu)+'" y2="'+B+'" class="emp"/>';
+      var labs=[[-0.5,'34%'],[0.5,'34%'],[-1.5,'13.5%'],[1.5,'13.5%'],[-2.5,'2.35%'],[2.5,'2.35%']];
+      labs.forEach(function(l){ s+='<text x="'+X(mu+l[0]*sd)+'" y="'+(B-8)+'" text-anchor="middle" class="lg">'+l[1]+'</text>'; });
+    }
+    svg.innerHTML=s;
+    if(!valid){ out.innerHTML=msg; return; }
+    var nm='X ~ N('+r(mu,3)+', '+r(sd,3)+')';
+    if(mode==='inv'){
+      svg.setAttribute('aria-label','Normal curve with the lowest '+r(area*100,1)+' percent shaded');
+      h='<div class="calc">'+nm+'. Area '+area+' to the left → z ≈ '+za.toFixed(3)+'</div><div class="calc">x = μ + zσ = '+r(mu,3)+' + ('+za.toFixed(3)+')('+r(sd,3)+') ≈ '+r(x2,2)+'</div><div>Calculator: invNorm(area = '+area+', μ = '+r(mu,3)+', σ = '+r(sd,3)+') ≈ '+r(x2,2)+'</div><div>About '+r(area*100,1)+'% of values are below '+r(x2,2)+', so '+r(x2,2)+' is the '+r(area*100,1)+'th percentile.</div>';
+    } else if(mode==='between'){
+      svg.setAttribute('aria-label','Normal curve shaded between '+a+' and '+b);
+      h='<div class="calc">'+nm+'. P('+a+' &lt; X &lt; '+b+')</div><div class="calc">z = ('+a+' − '+r(mu,3)+') ÷ '+r(sd,3)+' ≈ '+za.toFixed(2)+' and z = ('+b+' − '+r(mu,3)+') ÷ '+r(sd,3)+' ≈ '+zb.toFixed(2)+'</div><div class="calc">P ≈ '+f4(Phi(zb))+' − '+f4(Phi(za))+' = '+f4(P)+'</div><div>Calculator: normalcdf(lower = '+a+', upper = '+b+', μ = '+r(mu,3)+', σ = '+r(sd,3)+')</div>';
+    } else {
+      svg.setAttribute('aria-label','Normal curve shaded '+(mode==='left'?'left':'right')+' of '+a);
+      var sym=mode==='left'?'&lt;':'&gt;';
+      h='<div class="calc">'+nm+'. P(X '+sym+' '+a+')</div><div class="calc">z = ('+a+' − '+r(mu,3)+') ÷ '+r(sd,3)+' ≈ '+za.toFixed(2)+', so P(Z '+sym+' '+za.toFixed(2)+') ≈ '+f4(P)+'</div><div>Calculator: normalcdf(lower = '+(mode==='left'?'−∞':a)+', upper = '+(mode==='left'?a:'∞')+', μ = '+r(mu,3)+', σ = '+r(sd,3)+')</div><div>About '+r(P*100,1)+'% of values are '+(mode==='left'?'less':'greater')+' than '+a+'.</div>';
+    }
+    out.innerHTML=h;
+  }
+  root.querySelectorAll('[data-m]').forEach(function(btn){ btn.addEventListener('click',function(){ mode=btn.dataset.m; root.querySelectorAll('[data-m]').forEach(function(x){ x.setAttribute('aria-pressed',x===btn?'true':'false'); }); bindBounds(); draw(); }); });
+  root.querySelector('#nm-mu').addEventListener('input',function(e){ mu=parseFloat(e.target.value); draw(); });
+  root.querySelector('#nm-sd').addEventListener('input',function(e){ sd=parseFloat(e.target.value); draw(); });
+  root.querySelector('#nm-emp').addEventListener('change',function(e){ emp=e.target.checked; draw(); });
+  bindBounds(); draw();
+}
+var WIDGETS={dist:widgetDist,transform:widgetTransform,combine:widgetCombine,binom:widgetBinom,normal:widgetNormal};
+
+/* ---------- views ---------- */
+/* view: 'home' | 'path' | topic key | 'mix' */
+var state={path:null,view:'home',mode:'review'};
+var main=document.getElementById('main'), rail=document.getElementById('rail');
+
+function railHTML(){
+  var h='<div class="rail-title">Review Hub<span>Unit 2b, AP Statistics</span></div><ul>';
+  function item(v,n,t,path,prog){
+    var cur=(state.view===v&&(path===undefined||state.path===path));
+    return '<li><button class="rail-item" data-act="go" data-view="'+v+'"'+(path?' data-path="'+path+'"':'')+(cur?' aria-current="page"':'')+' aria-label="'+n+' '+t+'"><span class="rn">'+n+'</span><span class="rt">'+t+'</span><span class="rp"'+(prog?' data-prog="'+prog+'"':'')+'></span></button></li>';
+  }
+  h+=item('home','Home','Choose quiz or test');
+  if(!state.path){
+    h+=item('path','Quiz','Quiz prep: 2.8, 2.9, 2.11','quiz','path-quiz');
+    h+=item('path','Test','Test prep: 2.8–2.11','test','path-test');
+  } else {
+    var P=PATHS[state.path];
+    h+='<li class="rail-sub" aria-hidden="true">'+P.title+'</li>';
+    h+=item('path',P.label,'Overview: '+P.range.replace('Topics ',''),state.path,'path-'+state.path);
+    P.topics.forEach(function(k){ var t=TBYKEY[k]; h+=item(k,t.num,t.short,state.path,k); });
+    h+=item('mix','Mix',P.mix.short,state.path,P.mix.key);
+  }
+  return h+'</ul>';
+}
+function refreshStatus(){
+  TOPICS.concat([QUIZMIX,TESTMIX]).forEach(function(t){
+    var st=stats(t,state.path);
+    document.querySelectorAll('[data-prog="'+t.key+'"]').forEach(function(el){ el.textContent=st.done+'/'+st.total; });
+    document.querySelectorAll('[data-hprog="'+t.key+'"]').forEach(function(hp){ hp.textContent=st.done+' of '+st.total+' answered'+(st.done?' · '+st.correct+' correct':''); });
+  });
+  ['quiz','test'].forEach(function(k){
+    var ps=pathStats(PATHS[k]);
+    document.querySelectorAll('[data-prog="path-'+k+'"]').forEach(function(el){ el.textContent=ps.done+'/'+ps.total; });
+    document.querySelectorAll('[data-pprog="'+k+'"]').forEach(function(el){ el.textContent=ps.done+' of '+ps.total+' questions answered'+(ps.done?' · '+ps.correct+' correct':''); });
+  });
+  var cur=curSet(), s=document.getElementById('status');
+  if(cur&&s){ var st2=stats(cur,state.path); s.querySelector('.txt').textContent=st2.done+' of '+st2.total+' answered · '+st2.correct+' correct'; s.querySelector('.bar i').style.width=(st2.done/st2.total*100)+'%'; }
+}
+function curSet(){
+  if(state.view==='mix'&&state.path) return PATHS[state.path].mix;
+  return TBYKEY[state.view]||null;
+}
+function homeHTML(){
+  function card(k){
+    var P=PATHS[k], all=['t28','t29','t210','t211'];
+    var h='<button class="pathcard'+(k==='test'?' test':'')+'" data-act="go" data-view="path" data-path="'+k+'"><span class="kicker">'+P.title+'</span><h2>'+P.range+'</h2><ul>';
+    all.forEach(function(t){ var T=TBYKEY[t], on=P.topics.indexOf(t)>=0; h+='<li class="'+(on?'':'off')+'"><b>'+T.num+'</b><span>'+T.short+(on?(k==='quiz'&&t==='t29'?' (mean and SD only)':''):' (not on the quiz)')+'</span></li>'; });
+    h+='<li><b>Mix</b><span>'+P.mix.questions.length+' mixed questions</span></li></ul><span class="pp" data-pprog="'+k+'"></span><span class="go">Start '+P.label.toLowerCase()+' prep →</span></button>';
+    return h;
+  }
+  var h='<div class="page"><h1 style="font-size:clamp(1.9rem,5vw,2.8rem);margin-bottom:6px">Review Hub: Unit 2b</h1>'+
+   '<p class="home-lede">Random variables, the binomial distribution, and the normal distribution. Pick what you’re studying for. Each topic has a concept review, an interactive to try, and practice questions with explanations.</p>'+
+   '<div class="paths">'+card('quiz')+card('test')+'</div>';
+  h+='<div class="callout"><p><strong>Already studied for the quiz?</strong> Your answers on 2.8, 2.9, and 2.11 carry over to test prep. Pick up with transforming and combining in 2.9, then 2.10 and the test mixed review.</p></div>';
+  h+='<p class="fine">Built from the AP Statistics Course and Exam Description, effective fall 2026 (Unit 2, topics 2.8–2.11). Your answers are saved only in this browser.</p>';
+  h+='<p><button class="link" data-act="reset">Reset my answers</button></p></div>';
+  return h;
+}
+function pathHTML(){
+  var P=PATHS[state.path];
+  var h='<div class="page"><span class="badge'+(state.path==='test'?' test':'')+'">'+P.title+'</span><h1 style="font-size:clamp(1.9rem,5vw,2.6rem);margin-bottom:6px">'+P.range+'</h1><p class="home-lede">'+P.lede+'</p><div class="rows">';
+  P.topics.forEach(function(k){ var t=TBYKEY[k]; h+='<button class="row" data-act="go" data-view="'+t.key+'"><span class="big">'+t.num+'</span><span><h3>'+t.title+'</h3><p>'+(state.path==='quiz'&&t.blurbQuiz?t.blurbQuiz:t.blurb)+'</p></span><span class="prog" data-hprog="'+t.key+'"></span></button>'; });
+  h+='<button class="row" data-act="go" data-view="mix"><span class="big">Mix</span><span><h3>'+P.mix.title+'</h3><p>'+(state.path==='quiz'?'Choose the right idea, then use 2.8, 2.9 (mean and SD), and 2.11 together.':'Choose between a distribution table, combining rules, binomial, and normal, then apply it.')+'</p></span><span class="prog" data-hprog="'+P.mix.key+'"></span></button></div>';
+  h+='<div class="callout"><p><strong>Suggested order.</strong> Work through each topic’s concept review and practice, then finish with the mixed review. Mixed questions are closest to what you’ll see on the '+P.label.toLowerCase()+', because they don’t tell you which topic they come from.</p></div>';
+  if(state.path==='quiz') h+='<p class="fine">Studying for the test instead? <button class="link" data-act="go" data-view="path" data-path="test">Switch to test prep</button></p>';
+  else h+='<p class="fine">Only studying for the quiz? <button class="link" data-act="go" data-view="path" data-path="quiz">Switch to quiz prep</button></p>';
+  return h+'</div>';
+}
+function topicHeader(t){
+  var h='<header class="thead"><div class="tnum">'+t.num+'</div><div><h1>'+t.title+'</h1>';
+  if(t.objectives){ h+='<ul class="objs">'+t.objectives.filter(function(o){ return !(state.path==='quiz'&&o.indexOf('TEST:')===0); }).map(function(o){ return o.indexOf('TEST:')===0?'<li><span class="tonly">Test only</span>'+o.slice(5)+'</li>':'<li>'+o+'</li>'; }).join('')+'</ul>'; }
+  return h+'</div></header>';
+}
+function tabsHTML(t){
+  return '<div class="tabs" role="group" aria-label="Section"><button data-act="mode" data-mode="review" aria-pressed="'+(state.mode==='review')+'">Concept review</button><button data-act="mode" data-mode="practice" aria-pressed="'+(state.mode==='practice')+'">Practice ('+qList(t,state.path).length+')</button></div>';
+}
+function statusHTML(){ return '<div class="status" id="status"><span class="txt"></span><span class="bar" aria-hidden="true"><i></i></span></div>'; }
+function navHTML(t){
+  var P=PATHS[state.path], list=P.topics, h='<div class="nav">';
+  if(state.view==='mix') h+='<button class="btn ghost" data-act="go" data-view="path">Back to '+P.title.toLowerCase()+'</button>';
+  else {
+    var i=list.indexOf(t.key), prev=i>0?TBYKEY[list[i-1]]:null, next=i<list.length-1?TBYKEY[list[i+1]]:null;
+    h+= prev?'<button class="btn ghost" data-act="go" data-view="'+prev.key+'">← '+prev.num+' '+prev.short+'</button>':'<button class="btn ghost" data-act="go" data-view="path">← '+P.title+'</button>';
+    h+= next?'<button class="btn" data-act="go" data-view="'+next.key+'">'+next.num+' '+next.short+' →</button>':'<button class="btn" data-act="go" data-view="mix">Mixed review →</button>';
+  }
+  return h+'</div>';
+}
+function topicHTML(t){
+  var h='<div class="page"><span class="badge'+(state.path==='test'?' test':'')+'">'+PATHS[state.path].title+'</span>'+topicHeader(t)+tabsHTML(t);
+  if(state.mode==='review'){
+    h+=t.review+'<div class="callout"><p><strong>Ready?</strong> Test yourself on '+t.num+'.</p><div class="btnrow"><button class="btn" data-act="mode" data-mode="practice">Go to practice</button></div></div>';
+  } else {
+    h+=statusHTML()+'<p class="fine">Answer each question, then read the explanation. For written questions, write first, then compare with the model answer.</p>';
+    qList(t,state.path).forEach(function(q,i){ h+=qHTML(q,i+1); });
+  }
+  return h+navHTML(t)+'</div>';
+}
+function mixedHTML(){
+  var P=PATHS[state.path], M=P.mix;
+  var h='<div class="page"><span class="badge'+(state.path==='test'?' test':'')+'">'+P.title+'</span><header class="thead"><div class="tnum">Mix</div><div><h1>'+M.title+'</h1><ul class="objs"><li>'+P.range+' together. Decide which idea fits, then apply it.</li></ul></div></header>'+statusHTML();
+  M.questions.forEach(function(q,i){ h+=qHTML(q,i+1); });
+  return h+navHTML(M)+'</div>';
+}
+function render(scroll){
+  rail.innerHTML=railHTML();
+  if(state.view==='home'||!state.path) main.innerHTML=homeHTML();
+  else if(state.view==='path') main.innerHTML=pathHTML();
+  else if(state.view==='mix') main.innerHTML=mixedHTML();
+  else main.innerHTML=topicHTML(TBYKEY[state.view]);
+  main.querySelectorAll(state.path==='quiz'?'.test-only':'.quiz-only').forEach(function(e){ e.remove(); });
+  main.querySelectorAll('[data-widget]').forEach(function(w){ var f=WIDGETS[w.dataset.widget]; if(f) f(w); });
+  refreshStatus();
+  if(scroll!==false){ window.scrollTo(0,0); try{ main.focus({preventScroll:true}); }catch(e){} }
+}
+function commit(qid,noFocus){
+  saveProgress();
+  var item=QINDEX[qid], art=document.getElementById('q-'+qid);
+  if(art){ art.outerHTML=qHTML(item.q,qList(item.set,state.path).indexOf(item.q)+1); }
+  refreshStatus();
+  var na=document.getElementById('q-'+qid); if(!na) return;
+  var fb=na.querySelector('.fb'); try{ (fb&&!noFocus?fb:na).focus({preventScroll:true}); }catch(e){}
+}
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-act]'); if(!t) return;
+  var act=t.dataset.act, qid=t.dataset.qid;
+  if(act==='go'){
+    var v=t.dataset.view;
+    if(v==='home'){ state.path=null; }
+    else if(t.dataset.path){ state.path=t.dataset.path; }
+    state.view=v; state.mode='review'; render();
+  }
+  else if(act==='mode'){ state.mode=t.dataset.mode; render(false); var tb=main.querySelector('.tabs'); if(tb) tb.scrollIntoView(); }
+  else if(act==='pick'){ var i=+t.dataset.i, q=QINDEX[qid].q; progress[qid]={choice:i,correct:i===q.correct}; commit(qid); }
+  else if(act==='retry'){ delete progress[qid]; commit(qid,true); }
+  else if(act==='reveal'){ var ta=document.getElementById('ta-'+qid); progress[qid]={revealed:true,text:ta?ta.value:''}; commit(qid); }
+  else if(act==='self'){ progress[qid]=Object.assign({},progress[qid],{self:t.dataset.v}); commit(qid); }
+  else if(act==='reset'){
+    if(t.dataset.armed){ progress={}; saveProgress(); render(); }
+    else { t.dataset.armed='1'; t.textContent='Click again to erase all my answers'; }
+  }
+});
+render(false);
+})();
+</script>
+</body>
+</html>
